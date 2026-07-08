@@ -54,12 +54,14 @@ export function PostItem({ id, content, createdAt, isNeighbor, isOwn }: PostItem
   }
 
   return (
-    <li className="rounded-xl border border-stone-200 bg-white p-4">
-      <p className="whitespace-pre-wrap break-words text-sm leading-relaxed">{content}</p>
-      <div className="mt-2 flex items-center gap-3 text-xs text-stone-400">
+    <li className="rounded-2xl bg-white p-4 shadow-[0_1px_3px_rgba(28,25,23,0.06)] ring-1 ring-stone-900/5">
+      <p className="whitespace-pre-wrap break-words text-[15px] leading-relaxed text-ink">{content}</p>
+      <div className="mt-2.5 flex items-center gap-2 text-[11px] text-stone-400">
         <time>{format.dateTime(new Date(createdAt), { dateStyle: 'medium', timeStyle: 'short' })}</time>
         {isNeighbor && (
-          <span className="rounded-full bg-stone-100 px-2 py-0.5">{t('neighborLabel')}</span>
+          <span className="rounded-full bg-accent-soft px-2 py-0.5 font-medium text-accent-deep">
+            {t('neighborLabel')}
+          </span>
         )}
         <span className="ml-auto flex gap-3">
           {isOwn && (
@@ -79,11 +81,11 @@ export function PostItem({ id, content, createdAt, isNeighbor, isOwn }: PostItem
 
       {reporting && (
         <div className="mt-3 space-y-2 border-t border-stone-100 pt-3">
-          <p className="text-xs font-medium text-stone-600">{t('reportTitle')}</p>
+          <p className="text-xs font-semibold text-stone-600">{t('reportTitle')}</p>
           <select
             value={reason}
             onChange={(e) => setReason(e.target.value)}
-            className="w-full rounded border border-stone-300 px-2 py-1.5 text-sm"
+            className="w-full rounded-xl bg-stone-100 px-3 py-2 text-sm outline-none"
           >
             {REPORT_REASONS.map((r) => (
               <option key={r} value={r}>
@@ -96,19 +98,19 @@ export function PostItem({ id, content, createdAt, isNeighbor, isOwn }: PostItem
             onChange={(e) => setDetail(e.target.value)}
             placeholder={t('reportDetail')}
             maxLength={200}
-            className="w-full rounded border border-stone-300 px-2 py-1.5 text-sm"
+            className="w-full rounded-xl bg-stone-100 px-3 py-2 text-sm outline-none placeholder:text-stone-400 focus:ring-2 focus:ring-accent/40"
           />
-          {reportError && <p className="text-xs text-red-500">{reportError}</p>}
+          {reportError && <p className="text-xs text-accent-deep">{reportError}</p>}
           <div className="flex gap-2">
             <button
               onClick={handleReport}
-              className="rounded bg-stone-900 px-3 py-1.5 text-xs text-white"
+              className="rounded-full bg-ink px-4 py-2 text-xs font-medium text-white transition-transform duration-150 active:scale-95"
             >
               {t('reportSubmit')}
             </button>
             <button
               onClick={() => setReporting(false)}
-              className="rounded border border-stone-300 px-3 py-1.5 text-xs"
+              className="rounded-full px-4 py-2 text-xs text-stone-500"
             >
               {t('cancel')}
             </button>

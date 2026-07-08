@@ -5,18 +5,22 @@ import { Footer } from '@/components/Footer'
 
 export default async function Home() {
   const tCommon = await getTranslations('common')
-  const tHere = await getTranslations('here')
 
   return (
     <main className="flex flex-1 flex-col">
-      <div className="flex flex-1 flex-col items-center justify-center gap-6 text-center">
-        <h1 className="text-3xl font-bold tracking-tight">{SERVICE_NAME}</h1>
-        <p className="text-stone-600">{tCommon('tagline')}</p>
+      <div className="flex flex-1 flex-col items-center justify-center gap-8 text-center">
+        <div className="flex size-20 items-center justify-center rounded-[24px] bg-gradient-to-br from-[#ffb199] to-accent-deep shadow-xl shadow-accent/30">
+          <span className="text-4xl">💬</span>
+        </div>
+        <div className="space-y-2">
+          <h1 className="text-2xl font-bold tracking-tight text-ink">{SERVICE_NAME}</h1>
+          <p className="text-sm text-stone-500">{tCommon('tagline')}</p>
+        </div>
         <Link
           href="/here"
-          className="rounded-full bg-stone-900 px-8 py-3 font-medium text-stone-50"
+          className="rounded-full bg-gradient-to-b from-[#ff7d64] to-accent-deep px-12 py-4 text-base font-semibold text-white shadow-lg shadow-accent/30 transition-transform duration-150 active:scale-95"
         >
-          {tHere('request')}
+          {tCommon('start')}
         </Link>
       </div>
       <Footer />

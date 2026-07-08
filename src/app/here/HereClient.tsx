@@ -7,6 +7,12 @@ import { sendClientEvent } from '@/lib/client-events'
 
 type Status = 'idle' | 'locating' | 'denied' | 'error'
 
+const PRIMARY_BUTTON =
+  'rounded-full bg-gradient-to-b from-[#ff7d64] to-accent-deep px-12 py-4 text-base font-semibold text-white shadow-lg shadow-accent/30 transition-transform duration-150 active:scale-95'
+
+const GHOST_BUTTON =
+  'rounded-full bg-white px-8 py-3 text-sm font-medium text-ink shadow-sm ring-1 ring-stone-900/10 transition-transform duration-150 active:scale-95'
+
 export function HereClient({ source }: { source?: string }) {
   const [status, setStatus] = useState<Status>('idle')
   const router = useRouter()
@@ -57,18 +63,23 @@ export function HereClient({ source }: { source?: string }) {
   }
 
   if (status === 'locating') {
-    return <p className="text-sm text-stone-500">{t('locating')}</p>
+    return (
+      <div className="flex flex-col items-center gap-3">
+        <span className="relative flex size-3">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+          <span className="relative inline-flex size-3 rounded-full bg-accent" />
+        </span>
+        <p className="text-sm text-stone-500">{t('locating')}</p>
+      </div>
+    )
   }
 
   if (status === 'denied') {
     return (
-      <div className="space-y-3">
+      <div className="space-y-4">
         <p className="text-sm text-stone-700">{t('denied')}</p>
-        <p className="text-xs text-stone-500">{t('deniedHint')}</p>
-        <button
-          onClick={locate}
-          className="rounded-full border border-stone-300 px-6 py-2 text-sm"
-        >
+        <p className="text-xs text-stone-400">{t('deniedHint')}</p>
+        <button onClick={locate} className={GHOST_BUTTON}>
           {t('retry')}
         </button>
       </div>
@@ -77,12 +88,9 @@ export function HereClient({ source }: { source?: string }) {
 
   if (status === 'error') {
     return (
-      <div className="space-y-3">
+      <div className="space-y-4">
         <p className="text-sm text-stone-700">{tErrors('generic')}</p>
-        <button
-          onClick={locate}
-          className="rounded-full border border-stone-300 px-6 py-2 text-sm"
-        >
+        <button onClick={locate} className={GHOST_BUTTON}>
           {t('retry')}
         </button>
       </div>
@@ -90,12 +98,9 @@ export function HereClient({ source }: { source?: string }) {
   }
 
   return (
-    <div className="space-y-4">
-      <p className="max-w-xs text-xs text-stone-500">{t('intro')}</p>
-      <button
-        onClick={locate}
-        className="rounded-full bg-stone-900 px-8 py-3 font-medium text-stone-50"
-      >
+    <div className="flex flex-col items-center gap-5">
+      <p className="max-w-64 text-xs leading-relaxed text-stone-400">{t('intro')}</p>
+      <button onClick={locate} className={PRIMARY_BUTTON}>
         {t('request')}
       </button>
     </div>

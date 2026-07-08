@@ -1,7 +1,18 @@
 @import 'tailwindcss';
 
+@theme {
+  --color-accent: #ff6b5e;
+  --color-accent-deep: #ff5a47;
+  --color-accent-soft: #fff1ef;
+  --color-ink: #1c1917;
+}
+
 body {
   font-family:
-    'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Apple SD Gothic Neo',
-    system-ui, sans-serif;
+    -apple-system, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP',
+    'Apple SD Gothic Neo', system-ui, sans-serif;
+  background:
+    radial-gradient(60% 40% at 50% 0%, #fff6f3 0%, transparent 70%),
+    #faf9f7;
+  min-height: 100dvh;
 }

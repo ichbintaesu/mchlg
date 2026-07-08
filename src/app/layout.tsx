@@ -24,7 +24,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang={locale}>
-      <body className="bg-stone-50 text-stone-900 antialiased">
+      <body className="text-ink antialiased">
         <NextIntlClientProvider locale={locale} messages={messages} timeZone={TIME_ZONE}>
           <div className="mx-auto flex min-h-dvh max-w-md flex-col px-4">{children}</div>
         </NextIntlClientProvider>
