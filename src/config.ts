@@ -24,4 +24,4 @@ export const TIME_ZONE = 'Asia/Tokyo'
 
 export const LOCALES = ['ja', 'en', 'ko', 'zh-Hans', 'zh-Hant'] as const
 export type Locale = (typeof LOCALES)[number]
-export const DEFAULT_LOCALE: Locale = 'en'
+export const DEFAULT_LOCALE: Locale = 'ja'

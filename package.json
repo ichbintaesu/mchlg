@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
+    "@vercel/analytics": "^2.0.1",
     "drizzle-orm": "^0.45.2",
     "h3-js": "^4.5.0",
     "nanoid": "^5.1.16",

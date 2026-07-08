@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { Analytics } from '@vercel/analytics/next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages, getTranslations } from 'next-intl/server'
 import { SERVICE_NAME, TIME_ZONE } from '@/config'
@@ -27,6 +28,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <NextIntlClientProvider locale={locale} messages={messages} timeZone={TIME_ZONE}>
           <div className="mx-auto flex min-h-dvh max-w-md flex-col px-4">{children}</div>
         </NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   )
