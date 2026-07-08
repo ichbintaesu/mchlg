@@ -8,17 +8,17 @@ export default async function Home() {
 
   return (
     <main className="flex flex-1 flex-col">
-      <div className="flex flex-1 flex-col items-center justify-center gap-8 text-center">
-        <div className="flex size-20 items-center justify-center rounded-[24px] bg-gradient-to-br from-[#ffb199] to-accent-deep shadow-xl shadow-accent/30">
-          <span className="text-4xl">💬</span>
-        </div>
-        <div className="space-y-2">
-          <h1 className="text-2xl font-bold tracking-tight text-ink">{SERVICE_NAME}</h1>
-          <p className="text-sm text-stone-500">{tCommon('tagline')}</p>
+      <div className="flex flex-1 flex-col items-center justify-center gap-10 text-center">
+        <div className="space-y-3">
+          <h1 className="text-3xl font-bold tracking-tight text-stone-50">
+            {SERVICE_NAME}
+            <span className="text-accent">.</span>
+          </h1>
+          <p className="text-sm text-stone-400">{tCommon('tagline')}</p>
         </div>
         <Link
           href="/here"
-          className="glossy rounded-full bg-gradient-to-b from-[#ff7d64] to-accent-deep px-12 py-4 text-base font-semibold text-white transition-transform duration-150 active:scale-95"
+          className="glossy rounded-full bg-stone-50 px-12 py-4 text-base font-semibold text-ink transition-transform duration-150 active:scale-95"
         >
           {tCommon('start')}
         </Link>

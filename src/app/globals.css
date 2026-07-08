@@ -1,43 +1,42 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-accent: #ff6b5e;
-  --color-accent-deep: #ff5a47;
-  --color-accent-soft: #fff1ef;
-  --color-ink: #1c1917;
+  --color-accent: #ffa257;
+  --color-accent-deep: #ff8c3f;
+  --color-ink: #16171b;
+  --color-night: #0e0f13;
 }
 
 @utility glass {
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.65),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.3),
-    0 8px 24px rgba(28, 25, 23, 0.08);
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 @utility glass-strong {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(32px) saturate(200%);
-  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.35),
-    0 12px 32px rgba(28, 25, 23, 0.1);
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 12px 32px rgba(0, 0, 0, 0.45);
 }
 
 @utility glossy {
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.08),
-    0 10px 24px -6px rgba(255, 90, 71, 0.45);
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 10px 24px -6px rgba(0, 0, 0, 0.5);
 }
 
 body {
   font-family:
     -apple-system, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP',
     'Apple SD Gothic Neo', system-ui, sans-serif;
-  background: #faf9f7;
+  background: #0e0f13;
   min-height: 100dvh;
 }
