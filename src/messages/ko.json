@@ -1,0 +1,62 @@
+{
+  "common": {
+    "tagline": "지금 이 근처 사람들이 남긴 말",
+    "back": "뒤로"
+  },
+  "here": {
+    "intro": "현재 위치를 기반으로 지금 있는 곳의 로그를 엽니다. 정확한 위치는 저장되지 않습니다.",
+    "request": "이 근처 로그 열기",
+    "locating": "위치를 확인하는 중…",
+    "denied": "위치 정보 없이는 근처 로그를 열 수 없어요.",
+    "deniedHint": "브라우저 설정에서 위치 정보를 허용하고 다시 시도해주세요.",
+    "error": "위치 정보를 가져오지 못했어요.",
+    "retry": "다시 시도"
+  },
+  "cell": {
+    "title": "이 근처의 말들",
+    "subtitle": "이 근처에 있던 사람들의 익명 한마디",
+    "neighborLabel": "바로 근처",
+    "neighborNotice": "이 지역의 글이 적어서 바로 근처의 글도 함께 보여드려요.",
+    "empty": "아직 아무도 남기지 않았어요.",
+    "emptyCta": "첫 기록을 남겨보실래요?",
+    "compose": "한마디 남기기",
+    "placeholder": "지금 이 장소의 분위기를 한마디로",
+    "guideline": "사람이 아닌 장소의 분위기를 남겨주세요. 실명, 외모 평가, 특정인 지칭은 숨김 처리될 수 있습니다.",
+    "submit": "남기기",
+    "cancel": "취소",
+    "posted": "남겼습니다",
+    "pendingNotice": "확인 후에 표시됩니다.",
+    "delete": "삭제",
+    "deleteConfirm": "이 글을 삭제할까요?",
+    "report": "신고",
+    "reportTitle": "이 글 신고하기",
+    "reportDetail": "상세 내용 (선택)",
+    "reportSubmit": "신고하기",
+    "reported": "신고가 접수되었습니다"
+  },
+  "reportReasons": {
+    "personal": "개인 저격",
+    "abuse": "욕설/비방",
+    "sexual": "성적 표현",
+    "hate": "차별/혐오",
+    "spam": "스팸",
+    "danger": "위험한 내용",
+    "other": "기타"
+  },
+  "errors": {
+    "rateLimited": "잠시 후에 다시 시도해주세요.",
+    "cellMismatch": "지금 있는 곳에서만 남길 수 있어요.",
+    "filterBlocked": "이 내용은 남길 수 없어요.",
+    "lowAccuracy": "위치 정확도가 너무 낮아요. 실외에서 시도해주세요.",
+    "tooLong": "80자 이내로 입력해주세요.",
+    "generic": "오류가 발생했어요."
+  },
+  "footer": {
+    "about": "서비스 소개",
+    "privacy": "개인정보",
+    "terms": "이용약관",
+    "guidelines": "가이드라인",
+    "contact": "문의",
+    "language": "언어"
+  }
+}

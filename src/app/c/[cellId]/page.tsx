@@ -1,0 +1,88 @@
+import { notFound } from 'next/navigation'
+import { getLocale, getTranslations } from 'next-intl/server'
+import { SERVICE_NAME } from '@/config'
+import { isValidCellId } from '@/lib/h3'
+import { getCell, listCellPosts } from '@/lib/posts'
+import { getRequestContext } from '@/lib/request-context'
+import { trackEvent } from '@/lib/events'
+import { Footer } from '@/components/Footer'
+import { PostItem } from '@/components/PostItem'
+import { ComposeSheet } from '@/components/ComposeSheet'
+
+export default async function CellPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ cellId: string }>
+  searchParams: Promise<{ s?: string }>
+}) {
+  const { cellId } = await params
+  const { s } = await searchParams
+  const source = typeof s === 'string' ? s.slice(0, 32) : undefined
+
+  if (!isValidCellId(cellId)) notFound()
+
+  const cell = await getCell(cellId)
+  if (cell && (cell.status === 'hidden' || cell.status === 'blocked')) notFound()
+
+  const [{ posts, neighborFill }, ctx, locale, t] = await Promise.all([
+    listCellPosts(cellId),
+    getRequestContext(),
+    getLocale(),
+    getTranslations('cell'),
+  ])
+
+  await trackEvent({
+    type: 'cell_view',
+    ctx,
+    uiLocale: locale,
+    cellId,
+    source,
+    meta: { visibleCount: posts.filter((p) => !p.isNeighbor).length, neighborFill },
+  })
+
+  const locked = cell?.status === 'locked'
+
+  return (
+    <main className="flex flex-1 flex-col">
+      <header className="space-y-1 py-6">
+        <p className="text-xs font-bold tracking-tight text-stone-400">{SERVICE_NAME}</p>
+        <h1 className="text-xl font-bold tracking-tight">
+          {cell?.roughName ?? t('title')}
+        </h1>
+        <p className="text-xs text-stone-500">{t('subtitle')}</p>
+      </header>
+
+      {!locked && <ComposeSheet cellId={cellId} source={source} />}
+
+      <section className="flex-1 py-4">
+        {posts.length === 0 ? (
+          <div className="py-12 text-center">
+            <p className="text-sm text-stone-500">{t('empty')}</p>
+            <p className="mt-1 text-sm text-stone-700">{t('emptyCta')}</p>
+          </div>
+        ) : (
+          <>
+            {neighborFill && (
+              <p className="pb-3 text-xs text-stone-400">{t('neighborNotice')}</p>
+            )}
+            <ul className="space-y-3">
+              {posts.map((post) => (
+                <PostItem
+                  key={post.id}
+                  id={post.id}
+                  content={post.content}
+                  createdAt={post.createdAt.toISOString()}
+                  isNeighbor={post.isNeighbor}
+                  isOwn={post.deviceHash !== null && post.deviceHash === ctx.deviceHash}
+                />
+              ))}
+            </ul>
+          </>
+        )}
+      </section>
+
+      <Footer />
+    </main>
+  )
+}

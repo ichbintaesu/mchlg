@@ -1,0 +1,62 @@
+{
+  "common": {
+    "tagline": "附近的人留下的话",
+    "back": "返回"
+  },
+  "here": {
+    "intro": "根据当前位置打开这一带的记录。不会保存您的精确位置。",
+    "request": "打开这一带的记录",
+    "locating": "正在确认位置…",
+    "denied": "没有位置信息就无法打开附近的记录。",
+    "deniedHint": "请在浏览器设置中允许位置信息后重试。",
+    "error": "无法获取位置信息。",
+    "retry": "重试"
+  },
+  "cell": {
+    "title": "这一带的话",
+    "subtitle": "曾在附近的人留下的匿名留言",
+    "neighborLabel": "就在附近",
+    "neighborNotice": "这一带的留言较少，因此也显示了附近区域的留言。",
+    "empty": "还没有人留言。",
+    "emptyCta": "要不要留下第一句话?",
+    "compose": "留一句话",
+    "placeholder": "用一句话描述这里的氛围",
+    "guideline": "请描述地方的氛围，而不是评价人。真实姓名、外貌评价、指名道姓的内容可能会被隐藏。",
+    "submit": "发布",
+    "cancel": "取消",
+    "posted": "已发布",
+    "pendingNotice": "留言将在确认后显示。",
+    "delete": "删除",
+    "deleteConfirm": "删除这条留言?",
+    "report": "举报",
+    "reportTitle": "举报这条留言",
+    "reportDetail": "详细说明(可选)",
+    "reportSubmit": "提交举报",
+    "reported": "已收到举报"
+  },
+  "reportReasons": {
+    "personal": "攻击个人",
+    "abuse": "辱骂/诽谤",
+    "sexual": "色情内容",
+    "hate": "歧视/仇恨",
+    "spam": "垃圾信息",
+    "danger": "危险内容",
+    "other": "其他"
+  },
+  "errors": {
+    "rateLimited": "请稍后再试。",
+    "cellMismatch": "只能在当前所在的地方发布。",
+    "filterBlocked": "此内容无法发布。",
+    "lowAccuracy": "位置精度太低，请在室外重试。",
+    "tooLong": "请控制在80字以内。",
+    "generic": "发生错误。"
+  },
+  "footer": {
+    "about": "关于本服务",
+    "privacy": "隐私",
+    "terms": "使用条款",
+    "guidelines": "社区准则",
+    "contact": "联系我们",
+    "language": "语言"
+  }
+}

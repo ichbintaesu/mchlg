@@ -1,0 +1,62 @@
+{
+  "common": {
+    "tagline": "Words left by people around here",
+    "back": "Back"
+  },
+  "here": {
+    "intro": "Opens the log for where you are right now. Your exact location is never stored.",
+    "request": "Open the log for this area",
+    "locating": "Finding your location…",
+    "denied": "We can't open nearby logs without your location.",
+    "deniedHint": "Please allow location access in your browser settings and try again.",
+    "error": "Could not get your location.",
+    "retry": "Try again"
+  },
+  "cell": {
+    "title": "Words from this area",
+    "subtitle": "Anonymous notes from people who were around here",
+    "neighborLabel": "Nearby",
+    "neighborNotice": "Few posts in this exact area, so posts from just nearby are shown too.",
+    "empty": "No one has written here yet.",
+    "emptyCta": "Why not leave the first note?",
+    "compose": "Leave a note",
+    "placeholder": "Describe the vibe of this place",
+    "guideline": "Describe the place, not people. Real names, comments on appearance, or references to specific people may be hidden.",
+    "submit": "Post",
+    "cancel": "Cancel",
+    "posted": "Posted",
+    "pendingNotice": "Your post will appear after review.",
+    "delete": "Delete",
+    "deleteConfirm": "Delete this post?",
+    "report": "Report",
+    "reportTitle": "Report this post",
+    "reportDetail": "Details (optional)",
+    "reportSubmit": "Submit report",
+    "reported": "Report received"
+  },
+  "reportReasons": {
+    "personal": "Attack on an individual",
+    "abuse": "Insults / defamation",
+    "sexual": "Sexual content",
+    "hate": "Discrimination / hate",
+    "spam": "Spam",
+    "danger": "Dangerous content",
+    "other": "Other"
+  },
+  "errors": {
+    "rateLimited": "Please wait a while and try again.",
+    "cellMismatch": "You can only post from where you are now.",
+    "filterBlocked": "This content cannot be posted.",
+    "lowAccuracy": "Location accuracy is too low. Try outdoors.",
+    "tooLong": "Please keep it within 80 characters.",
+    "generic": "Something went wrong."
+  },
+  "footer": {
+    "about": "About",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "guidelines": "Guidelines",
+    "contact": "Contact",
+    "language": "Language"
+  }
+}

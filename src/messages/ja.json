@@ -1,0 +1,62 @@
+{
+  "common": {
+    "tagline": "いまこの辺りの人が残したことば",
+    "back": "戻る"
+  },
+  "here": {
+    "intro": "位置情報をもとに、いまいる場所のログを開きます。正確な位置は保存されません。",
+    "request": "この辺りのログを開く",
+    "locating": "位置を確認しています…",
+    "denied": "位置情報がないと、近くのログを開けません。",
+    "deniedHint": "ブラウザの設定で位置情報を許可して、もう一度お試しください。",
+    "error": "位置情報を取得できませんでした。",
+    "retry": "もう一度試す"
+  },
+  "cell": {
+    "title": "この辺りのことば",
+    "subtitle": "この近くにいた人たちの匿名のひとこと",
+    "neighborLabel": "すぐ近く",
+    "neighborNotice": "この辺りの投稿が少ないため、すぐ近くのエリアの投稿も表示しています。",
+    "empty": "まだ誰も書いていません。",
+    "emptyCta": "最初のひとことを残してみませんか?",
+    "compose": "ひとこと残す",
+    "placeholder": "いまこの場所の空気をひとこと",
+    "guideline": "人ではなく、場所の雰囲気を残してください。実名・外見の評価・特定の人への言及は非表示になることがあります。",
+    "submit": "投稿する",
+    "cancel": "キャンセル",
+    "posted": "投稿しました",
+    "pendingNotice": "投稿は確認後に表示されます。",
+    "delete": "削除",
+    "deleteConfirm": "この投稿を削除しますか?",
+    "report": "通報",
+    "reportTitle": "この投稿を通報する",
+    "reportDetail": "詳細(任意)",
+    "reportSubmit": "通報する",
+    "reported": "通報を受け付けました"
+  },
+  "reportReasons": {
+    "personal": "個人への攻撃",
+    "abuse": "悪口・誹謗中傷",
+    "sexual": "性的な表現",
+    "hate": "差別・ヘイト",
+    "spam": "スパム",
+    "danger": "危険な内容",
+    "other": "その他"
+  },
+  "errors": {
+    "rateLimited": "しばらくしてからもう一度お試しください。",
+    "cellMismatch": "いまいる場所からのみ投稿できます。",
+    "filterBlocked": "この内容は投稿できません。",
+    "lowAccuracy": "位置情報の精度が低すぎます。屋外でお試しください。",
+    "tooLong": "80文字以内で入力してください。",
+    "generic": "エラーが発生しました。"
+  },
+  "footer": {
+    "about": "このサービスについて",
+    "privacy": "プライバシー",
+    "terms": "利用規約",
+    "guidelines": "ガイドライン",
+    "contact": "お問い合わせ",
+    "language": "言語"
+  }
+}

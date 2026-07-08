@@ -1,0 +1,62 @@
+{
+  "common": {
+    "tagline": "附近的人留下的話",
+    "back": "返回"
+  },
+  "here": {
+    "intro": "根據目前位置開啟這一帶的紀錄。不會儲存您的精確位置。",
+    "request": "開啟這一帶的紀錄",
+    "locating": "正在確認位置…",
+    "denied": "沒有位置資訊就無法開啟附近的紀錄。",
+    "deniedHint": "請在瀏覽器設定中允許位置資訊後再試一次。",
+    "error": "無法取得位置資訊。",
+    "retry": "再試一次"
+  },
+  "cell": {
+    "title": "這一帶的話",
+    "subtitle": "曾在附近的人留下的匿名留言",
+    "neighborLabel": "就在附近",
+    "neighborNotice": "這一帶的留言較少，因此也顯示了附近區域的留言。",
+    "empty": "還沒有人留言。",
+    "emptyCta": "要不要留下第一句話?",
+    "compose": "留一句話",
+    "placeholder": "用一句話描述這裡的氛圍",
+    "guideline": "請描述地方的氛圍，而不是評價人。真實姓名、外貌評價、指名道姓的內容可能會被隱藏。",
+    "submit": "發布",
+    "cancel": "取消",
+    "posted": "已發布",
+    "pendingNotice": "留言將在確認後顯示。",
+    "delete": "刪除",
+    "deleteConfirm": "刪除這則留言?",
+    "report": "檢舉",
+    "reportTitle": "檢舉這則留言",
+    "reportDetail": "詳細說明(選填)",
+    "reportSubmit": "送出檢舉",
+    "reported": "已收到檢舉"
+  },
+  "reportReasons": {
+    "personal": "攻擊個人",
+    "abuse": "辱罵/誹謗",
+    "sexual": "色情內容",
+    "hate": "歧視/仇恨",
+    "spam": "垃圾訊息",
+    "danger": "危險內容",
+    "other": "其他"
+  },
+  "errors": {
+    "rateLimited": "請稍後再試。",
+    "cellMismatch": "只能在目前所在的地方發布。",
+    "filterBlocked": "此內容無法發布。",
+    "lowAccuracy": "位置精度太低，請在室外再試一次。",
+    "tooLong": "請控制在80字以內。",
+    "generic": "發生錯誤。"
+  },
+  "footer": {
+    "about": "關於本服務",
+    "privacy": "隱私權",
+    "terms": "使用條款",
+    "guidelines": "社群準則",
+    "contact": "聯絡我們",
+    "language": "語言"
+  }
+}
