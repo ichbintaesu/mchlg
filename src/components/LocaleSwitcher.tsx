@@ -25,7 +25,7 @@ export function LocaleSwitcher() {
     <select
       value={locale}
       onChange={(e) => handleChange(e.target.value)}
-      className="rounded-full bg-stone-100 px-3 py-1 text-[11px] text-stone-500 outline-none"
+      className="glass rounded-full px-3 py-1 text-[11px] text-stone-500 outline-none"
       aria-label="Language"
     >
       {LOCALES.map((l) => (

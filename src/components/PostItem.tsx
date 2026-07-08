@@ -54,7 +54,7 @@ export function PostItem({ id, content, createdAt, isNeighbor, isOwn }: PostItem
   }
 
   return (
-    <li className="rounded-2xl bg-white p-4 shadow-[0_1px_3px_rgba(28,25,23,0.06)] ring-1 ring-stone-900/5">
+    <li className="glass rounded-2xl p-4">
       <p className="whitespace-pre-wrap break-words text-[15px] leading-relaxed text-ink">{content}</p>
       <div className="mt-2.5 flex items-center gap-2 text-[11px] text-stone-400">
         <time>{format.dateTime(new Date(createdAt), { dateStyle: 'medium', timeStyle: 'short' })}</time>
@@ -85,7 +85,7 @@ export function PostItem({ id, content, createdAt, isNeighbor, isOwn }: PostItem
           <select
             value={reason}
             onChange={(e) => setReason(e.target.value)}
-            className="w-full rounded-xl bg-stone-100 px-3 py-2 text-sm outline-none"
+            className="w-full rounded-xl bg-white/60 px-3 py-2 text-sm outline-none"
           >
             {REPORT_REASONS.map((r) => (
               <option key={r} value={r}>
@@ -98,7 +98,7 @@ export function PostItem({ id, content, createdAt, isNeighbor, isOwn }: PostItem
             onChange={(e) => setDetail(e.target.value)}
             placeholder={t('reportDetail')}
             maxLength={200}
-            className="w-full rounded-xl bg-stone-100 px-3 py-2 text-sm outline-none placeholder:text-stone-400 focus:ring-2 focus:ring-accent/40"
+            className="w-full rounded-xl bg-white/60 px-3 py-2 text-sm outline-none placeholder:text-stone-400 focus:ring-2 focus:ring-accent/40"
           />
           {reportError && <p className="text-xs text-accent-deep">{reportError}</p>}
           <div className="flex gap-2">

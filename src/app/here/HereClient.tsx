@@ -8,10 +8,10 @@ import { sendClientEvent } from '@/lib/client-events'
 type Status = 'idle' | 'locating' | 'denied' | 'error'
 
 const PRIMARY_BUTTON =
-  'rounded-full bg-gradient-to-b from-[#ff7d64] to-accent-deep px-12 py-4 text-base font-semibold text-white shadow-lg shadow-accent/30 transition-transform duration-150 active:scale-95'
+  'glossy rounded-full bg-gradient-to-b from-[#ff7d64] to-accent-deep px-12 py-4 text-base font-semibold text-white transition-transform duration-150 active:scale-95'
 
 const GHOST_BUTTON =
-  'rounded-full bg-white px-8 py-3 text-sm font-medium text-ink shadow-sm ring-1 ring-stone-900/10 transition-transform duration-150 active:scale-95'
+  'glass rounded-full px-8 py-3 text-sm font-medium text-ink transition-transform duration-150 active:scale-95'
 
 export function HereClient({ source }: { source?: string }) {
   const [status, setStatus] = useState<Status>('idle')

@@ -93,7 +93,7 @@ export function ComposeSheet({ cellId, source }: { cellId: string; source?: stri
       <div className="space-y-2">
         <button
           onClick={handleOpen}
-          className="w-full rounded-full bg-gradient-to-b from-[#ff7d64] to-accent-deep py-3.5 font-semibold text-white shadow-lg shadow-accent/25 transition-transform duration-150 active:scale-[0.98]"
+          className="glossy w-full rounded-full bg-gradient-to-b from-[#ff7d64] to-accent-deep py-3.5 font-semibold text-white transition-transform duration-150 active:scale-[0.98]"
         >
           ✍️ {t('compose')}
         </button>
@@ -107,7 +107,7 @@ export function ComposeSheet({ cellId, source }: { cellId: string; source?: stri
   }
 
   return (
-    <div className="space-y-2.5 rounded-2xl bg-white p-4 shadow-[0_4px_16px_rgba(28,25,23,0.08)] ring-1 ring-stone-900/5">
+    <div className="glass-strong space-y-2.5 rounded-2xl p-4">
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
@@ -115,7 +115,7 @@ export function ComposeSheet({ cellId, source }: { cellId: string; source?: stri
         maxLength={MAX_POST_LENGTH}
         rows={3}
         autoFocus
-        className="w-full resize-none rounded-xl bg-stone-100 p-3 text-[15px] outline-none placeholder:text-stone-400 focus:ring-2 focus:ring-accent/40"
+        className="w-full resize-none rounded-xl bg-white/60 p-3 text-[15px] outline-none placeholder:text-stone-400 focus:ring-2 focus:ring-accent/40"
       />
       <div className="flex items-center justify-between text-[11px] text-stone-400">
         <span className={content.length >= MAX_POST_LENGTH ? 'font-semibold text-accent-deep' : ''}>
@@ -128,7 +128,7 @@ export function ComposeSheet({ cellId, source }: { cellId: string; source?: stri
         <button
           onClick={handleSubmit}
           disabled={state === 'submitting' || content.trim().length === 0}
-          className="flex-1 rounded-full bg-gradient-to-b from-[#ff7d64] to-accent-deep py-3 text-sm font-semibold text-white shadow-md shadow-accent/25 transition-transform duration-150 active:scale-[0.98] disabled:opacity-40 disabled:shadow-none"
+          className="glossy flex-1 rounded-full bg-gradient-to-b from-[#ff7d64] to-accent-deep py-3 text-sm font-semibold text-white transition-transform duration-150 active:scale-[0.98] disabled:opacity-40"
         >
           {t('submit')}
         </button>

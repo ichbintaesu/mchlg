@@ -18,7 +18,7 @@ export default async function Home() {
         </div>
         <Link
           href="/here"
-          className="rounded-full bg-gradient-to-b from-[#ff7d64] to-accent-deep px-12 py-4 text-base font-semibold text-white shadow-lg shadow-accent/30 transition-transform duration-150 active:scale-95"
+          className="glossy rounded-full bg-gradient-to-b from-[#ff7d64] to-accent-deep px-12 py-4 text-base font-semibold text-white transition-transform duration-150 active:scale-95"
         >
           {tCommon('start')}
         </Link>
