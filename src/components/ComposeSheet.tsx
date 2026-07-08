@@ -93,15 +93,15 @@ export function ComposeSheet({ cellId, source }: { cellId: string; source?: stri
       <div className="space-y-2">
         <button
           onClick={handleOpen}
-          className="glossy w-full rounded-full bg-stone-50 py-3.5 font-semibold text-ink transition-transform duration-150 active:scale-[0.98]"
+          className="glossy w-full rounded-full bg-ink py-3.5 font-semibold text-white transition-transform duration-150 active:scale-[0.98]"
         >
           {t('compose')}
         </button>
-        {state === 'posted' && <p className="text-center text-xs text-stone-400">{t('posted')}</p>}
+        {state === 'posted' && <p className="text-center text-xs text-stone-500">{t('posted')}</p>}
         {state === 'pending' && (
-          <p className="text-center text-xs text-stone-400">{t('pendingNotice')}</p>
+          <p className="text-center text-xs text-stone-500">{t('pendingNotice')}</p>
         )}
-        {error && <p className="text-center text-xs text-accent">{error}</p>}
+        {error && <p className="text-center text-xs text-accent-deep">{error}</p>}
       </div>
     )
   }
@@ -115,20 +115,20 @@ export function ComposeSheet({ cellId, source }: { cellId: string; source?: stri
         maxLength={MAX_POST_LENGTH}
         rows={3}
         autoFocus
-        className="w-full resize-none rounded-xl bg-white/10 p-3 text-[15px] text-stone-100 outline-none placeholder:text-stone-500 focus:ring-2 focus:ring-accent/40"
+        className="w-full resize-none rounded-xl bg-stone-900/5 p-3 text-[15px] text-ink outline-none placeholder:text-stone-400 focus:ring-2 focus:ring-accent/40"
       />
-      <div className="flex items-center justify-between text-[11px] text-stone-500">
-        <span className={content.length >= MAX_POST_LENGTH ? 'font-semibold text-accent' : ''}>
+      <div className="flex items-center justify-between text-[11px] text-stone-400">
+        <span className={content.length >= MAX_POST_LENGTH ? 'font-semibold text-accent-deep' : ''}>
           {content.length}/{MAX_POST_LENGTH}
         </span>
       </div>
-      <p className="text-[11px] leading-relaxed text-stone-500">{t('guideline')}</p>
-      {error && <p className="text-xs text-accent">{error}</p>}
+      <p className="text-[11px] leading-relaxed text-stone-400">{t('guideline')}</p>
+      {error && <p className="text-xs text-accent-deep">{error}</p>}
       <div className="flex gap-2">
         <button
           onClick={handleSubmit}
           disabled={state === 'submitting' || content.trim().length === 0}
-          className="glossy flex-1 rounded-full bg-stone-50 py-3 text-sm font-semibold text-ink transition-transform duration-150 active:scale-[0.98] disabled:opacity-40"
+          className="glossy flex-1 rounded-full bg-ink py-3 text-sm font-semibold text-white transition-transform duration-150 active:scale-[0.98] disabled:opacity-40"
         >
           {t('submit')}
         </button>

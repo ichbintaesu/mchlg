@@ -51,8 +51,8 @@ export default async function AdminPostsPage({
             href={`/admin/posts?filter=${f.key}`}
             className={`rounded-full border px-3 py-1 ${
               filter === f.key
-                ? 'border-stone-50 bg-stone-50 text-ink'
-                : 'border-stone-600 text-stone-300'
+                ? 'border-ink bg-ink text-white'
+                : 'border-stone-300 text-stone-600'
             }`}
           >
             {f.label}

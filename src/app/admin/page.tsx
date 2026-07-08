@@ -20,12 +20,12 @@ export default async function AdminLoginPage({
           name="password"
           placeholder="Password"
           autoFocus
-          className="w-full rounded-xl bg-white/10 px-3 py-2 text-sm text-stone-100 outline-none"
+          className="w-full rounded-xl bg-stone-900/5 px-3 py-2 text-sm text-ink outline-none"
         />
-        {error && <p className="text-xs text-accent">비밀번호가 올바르지 않습니다.</p>}
+        {error && <p className="text-xs text-accent-deep">비밀번호가 올바르지 않습니다.</p>}
         <button
           type="submit"
-          className="w-full rounded-xl bg-stone-50 py-2.5 text-sm font-medium text-ink"
+          className="w-full rounded-xl bg-ink py-2.5 text-sm font-medium text-white"
         >
           로그인
         </button>
