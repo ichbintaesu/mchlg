@@ -31,7 +31,10 @@
     "reportDetail": "详细说明(可选)",
     "reportSubmit": "提交举报",
     "reported": "已收到举报",
-    "somewhere": "这附近的某处"
+    "somewhere": "这附近的某处",
+    "reaction": "有同感",
+    "sortNew": "最新",
+    "sortTop": "热门"
   },
   "reportReasons": {
     "personal": "攻击个人",

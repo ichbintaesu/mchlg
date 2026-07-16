@@ -11,14 +11,26 @@ interface PostItemProps {
   content: string
   createdAt: string
   isOwn: boolean
+  reactionCount: number
+  reactedByMe: boolean
 }
 
-export function PostItem({ id, content, createdAt, isOwn }: PostItemProps) {
+export function PostItem({
+  id,
+  content,
+  createdAt,
+  isOwn,
+  reactionCount,
+  reactedByMe,
+}: PostItemProps) {
   const [reporting, setReporting] = useState(false)
   const [reason, setReason] = useState<string>('personal')
   const [detail, setDetail] = useState('')
   const [done, setDone] = useState(false)
   const [reportError, setReportError] = useState<string | null>(null)
+  const [reacted, setReacted] = useState(reactedByMe)
+  const [count, setCount] = useState(reactionCount)
+  const [reactionBusy, setReactionBusy] = useState(false)
   const router = useRouter()
   const t = useTranslations('cell')
   const tReasons = useTranslations('reportReasons')
@@ -26,6 +38,29 @@ export function PostItem({ id, content, createdAt, isOwn }: PostItemProps) {
   const format = useFormatter()
 
   const created = new Date(createdAt)
+
+  const handleReaction = async () => {
+    if (isOwn || reactionBusy) return
+    setReactionBusy(true)
+    setReacted(!reacted)
+    setCount((c) => c + (reacted ? -1 : 1))
+    try {
+      const res = await fetch(`/api/posts/${id}/reaction`, { method: 'POST' })
+      if (res.ok) {
+        const data: { reacted: boolean; count: number } = await res.json()
+        setReacted(data.reacted)
+        setCount(data.count)
+      } else {
+        setReacted(reacted)
+        setCount(count)
+      }
+    } catch {
+      setReacted(reacted)
+      setCount(count)
+    } finally {
+      setReactionBusy(false)
+    }
+  }
 
   const handleDelete = async () => {
     if (!confirm(t('deleteConfirm'))) return
@@ -67,7 +102,27 @@ export function PostItem({ id, content, createdAt, isOwn }: PostItemProps) {
           <p className="whitespace-pre-wrap break-words text-[15px] leading-relaxed text-ink">
             {content}
           </p>
-          <div className="mt-1.5 flex justify-end gap-3 text-xs text-stone-500">
+          <div className="mt-1.5 flex items-center gap-3 text-xs text-stone-500">
+            {isOwn ? (
+              count > 0 && (
+                <span className="font-medium text-accent-deep">
+                  {t('reaction')} {count}
+                </span>
+              )
+            ) : (
+              <button
+                onClick={handleReaction}
+                className={`rounded-full border px-2.5 py-0.5 font-medium transition-colors ${
+                  reacted
+                    ? 'border-accent bg-accent/10 text-accent-deep'
+                    : 'border-stone-300 text-stone-500'
+                }`}
+              >
+                {t('reaction')}
+                {count > 0 && <span className="ml-1 tabular-nums">{count}</span>}
+              </button>
+            )}
+            <span className="ml-auto flex gap-3">
             {isOwn && (
               <button onClick={handleDelete} className="underline">
                 {t('delete')}
@@ -80,6 +135,7 @@ export function PostItem({ id, content, createdAt, isOwn }: PostItemProps) {
                 {t('report')}
               </button>
             )}
+            </span>
           </div>
         </div>
       </div>

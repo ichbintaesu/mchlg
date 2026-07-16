@@ -31,7 +31,10 @@
     "reportDetail": "詳細說明(選填)",
     "reportSubmit": "送出檢舉",
     "reported": "已收到檢舉",
-    "somewhere": "這附近的某處"
+    "somewhere": "這附近的某處",
+    "reaction": "有同感",
+    "sortNew": "最新",
+    "sortTop": "熱門"
   },
   "reportReasons": {
     "personal": "攻擊個人",

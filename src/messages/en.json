@@ -31,7 +31,10 @@
     "reportDetail": "Details (optional)",
     "reportSubmit": "Submit report",
     "reported": "Report received",
-    "somewhere": "somewhere around here"
+    "somewhere": "somewhere around here",
+    "reaction": "Felt this",
+    "sortNew": "New",
+    "sortTop": "Top"
   },
   "reportReasons": {
     "personal": "Attack on an individual",

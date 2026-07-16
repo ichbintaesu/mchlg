@@ -1,6 +1,6 @@
-import { and, desc, eq, sql } from 'drizzle-orm'
+import { and, desc, eq, inArray, sql } from 'drizzle-orm'
 import { db } from '@/db'
-import { cells, posts } from '@/db/schema'
+import { cells, postReactions, posts } from '@/db/schema'
 import { POSTS_PAGE_SIZE } from '@/config'
 import { cellCenter, directionalNeighbor } from './h3'
 import { reverseGeocodeTown } from './geocode'
@@ -10,7 +10,11 @@ export interface CellPost {
   content: string
   createdAt: Date
   deviceHash: string | null
+  reactionCount: number
+  reactedByMe: boolean
 }
+
+export type PostSort = 'new' | 'top'
 
 export async function ensureCell(cellId: string) {
   const [existing] = await db.select().from(cells).where(eq(cells.id, cellId))
@@ -62,19 +66,46 @@ export async function getCell(cellId: string) {
   return cell ?? null
 }
 
-export async function listCellPosts(cellId: string): Promise<CellPost[]> {
+export async function listCellPosts(
+  cellId: string,
+  sort: PostSort,
+  viewerDeviceHash: string | null,
+): Promise<CellPost[]> {
   const rows = await db
     .select()
     .from(posts)
     .where(and(eq(posts.cellId, cellId), eq(posts.status, 'visible')))
-    .orderBy(desc(posts.createdAt))
+    .orderBy(
+      ...(sort === 'top'
+        ? [desc(posts.reactionCount), desc(posts.createdAt)]
+        : [desc(posts.createdAt)]),
+    )
     .limit(POSTS_PAGE_SIZE)
+
+  const reactedIds = new Set<string>()
+  if (viewerDeviceHash && rows.length > 0) {
+    const reacted = await db
+      .select({ postId: postReactions.postId })
+      .from(postReactions)
+      .where(
+        and(
+          eq(postReactions.deviceHash, viewerDeviceHash),
+          inArray(
+            postReactions.postId,
+            rows.map((p) => p.id),
+          ),
+        ),
+      )
+    reacted.forEach((r) => reactedIds.add(r.postId))
+  }
 
   return rows.map((p) => ({
     id: p.id,
     content: p.content,
     createdAt: p.createdAt,
     deviceHash: p.deviceHash,
+    reactionCount: p.reactionCount,
+    reactedByMe: reactedIds.has(p.id),
   }))
 }
 

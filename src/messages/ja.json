@@ -31,7 +31,10 @@
     "reportDetail": "詳細(任意)",
     "reportSubmit": "通報する",
     "reported": "通報を受け付けました",
-    "somewhere": "このあたりのどこか"
+    "somewhere": "このあたりのどこか",
+    "reaction": "わかる",
+    "sortNew": "新着",
+    "sortTop": "人気"
   },
   "reportReasons": {
     "personal": "個人への攻撃",

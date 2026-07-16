@@ -2,8 +2,9 @@ import { notFound } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { SERVICE_NAME, TOWN_COOKIE } from '@/config'
+import Link from 'next/link'
 import { isValidCellId } from '@/lib/h3'
-import { findAdjacentTown, getCell, listCellPosts } from '@/lib/posts'
+import { findAdjacentTown, getCell, listCellPosts, type PostSort } from '@/lib/posts'
 import { getRequestContext } from '@/lib/request-context'
 import { trackEvent } from '@/lib/events'
 import { Footer } from '@/components/Footer'
@@ -25,23 +26,23 @@ export default async function CellPage({
   searchParams,
 }: {
   params: Promise<{ cellId: string }>
-  searchParams: Promise<{ s?: string }>
+  searchParams: Promise<{ s?: string; sort?: string }>
 }) {
   const { cellId } = await params
-  const { s } = await searchParams
+  const { s, sort: sortParam } = await searchParams
   const source = typeof s === 'string' ? s.slice(0, 32) : undefined
+  const sort: PostSort = sortParam === 'top' ? 'top' : 'new'
 
   if (!isValidCellId(cellId)) notFound()
 
   const cell = await getCell(cellId)
   if (cell && (cell.status === 'hidden' || cell.status === 'blocked')) notFound()
 
-  const cookieStore = await cookies()
+  const [cookieStore, ctx] = await Promise.all([cookies(), getRequestContext()])
   const town = readTownCookie(cookieStore.get(TOWN_COOKIE)?.value) ?? cell?.roughName ?? null
 
-  const [posts, ctx, locale, t, westTown, eastTown] = await Promise.all([
-    listCellPosts(cellId),
-    getRequestContext(),
+  const [posts, locale, t, westTown, eastTown] = await Promise.all([
+    listCellPosts(cellId, sort, ctx.deviceHash),
     getLocale(),
     getTranslations('cell'),
     findAdjacentTown(cellId, 'west', town),
@@ -102,6 +103,21 @@ export default async function CellPage({
       {!locked && <ComposeSheet cellId={cellId} source={source} />}
 
       <section className="flex-1 py-4">
+        {posts.length > 0 && (
+          <nav className="flex justify-end gap-1 pb-2 text-xs">
+            {(['new', 'top'] as const).map((key) => (
+              <Link
+                key={key}
+                href={`/c/${cellId}?sort=${key}${source ? `&s=${encodeURIComponent(source)}` : ''}`}
+                className={`rounded-md px-2.5 py-1 ${
+                  sort === key ? 'bg-ink font-medium text-white' : 'text-stone-500'
+                }`}
+              >
+                {key === 'new' ? t('sortNew') : t('sortTop')}
+              </Link>
+            ))}
+          </nav>
+        )}
         {posts.length === 0 ? (
           <div className="rounded-md bg-white px-4 py-16 text-center shadow-[0_1px_4px_rgba(0,0,0,0.15)]">
             <p className="text-sm text-stone-500">{t('empty')}</p>
@@ -116,6 +132,8 @@ export default async function CellPage({
                 content={post.content}
                 createdAt={post.createdAt.toISOString()}
                 isOwn={post.deviceHash !== null && post.deviceHash === ctx.deviceHash}
+                reactionCount={post.reactionCount}
+                reactedByMe={post.reactedByMe}
               />
             ))}
           </ul>

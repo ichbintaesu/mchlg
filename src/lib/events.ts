@@ -15,6 +15,8 @@ export type EventType =
   | 'post_rejected'
   | 'post_deleted'
   | 'report_created'
+  | 'reaction_created'
+  | 'reaction_removed'
 
 export const EVENT_TYPES: EventType[] = [
   'scan',
@@ -27,6 +29,8 @@ export const EVENT_TYPES: EventType[] = [
   'post_rejected',
   'post_deleted',
   'report_created',
+  'reaction_created',
+  'reaction_removed',
 ]
 
 interface TrackInput {

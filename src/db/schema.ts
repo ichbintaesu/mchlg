@@ -34,6 +34,7 @@ export const posts = pgTable(
     language: text('language'),
     status: text('status').notNull().default('visible'),
     reportCount: integer('report_count').notNull().default(0),
+    reactionCount: integer('reaction_count').notNull().default(0),
     deviceHash: text('device_hash'),
     ipHash: text('ip_hash'),
     ipEnc: text('ip_enc'),
@@ -67,6 +68,19 @@ export const reports = pgTable(
     index('reports_post_idx').on(t.postId),
     uniqueIndex('reports_post_device_uq').on(t.postId, t.deviceHash),
   ],
+)
+
+export const postReactions = pgTable(
+  'post_reactions',
+  {
+    id: text('id').primaryKey(),
+    postId: text('post_id')
+      .notNull()
+      .references(() => posts.id),
+    deviceHash: text('device_hash').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [uniqueIndex('post_reactions_post_device_uq').on(t.postId, t.deviceHash)],
 )
 
 export const devices = pgTable('devices', {
