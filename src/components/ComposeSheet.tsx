@@ -93,7 +93,7 @@ export function ComposeSheet({ cellId, source }: { cellId: string; source?: stri
       <div className="space-y-2">
         <button
           onClick={handleOpen}
-          className="w-full rounded-full bg-ink py-3.5 font-semibold text-white transition-transform duration-150 active:scale-[0.98]"
+          className="w-full rounded-lg bg-accent py-3.5 font-bold text-white transition-transform duration-150 active:scale-[0.98]"
         >
           {t('compose')}
         </button>
@@ -107,7 +107,7 @@ export function ComposeSheet({ cellId, source }: { cellId: string; source?: stri
   }
 
   return (
-    <div className="space-y-2.5 rounded-xl border border-stone-200 bg-white p-4">
+    <div className="space-y-2.5 rounded-lg border-2 border-ink bg-white p-4">
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
@@ -115,7 +115,7 @@ export function ComposeSheet({ cellId, source }: { cellId: string; source?: stri
         maxLength={MAX_POST_LENGTH}
         rows={3}
         autoFocus
-        className="w-full resize-none rounded-lg border border-stone-300 p-3 text-[15px] text-ink outline-none placeholder:text-stone-400 focus:border-stone-500"
+        className="w-full resize-none rounded-lg border border-stone-300 p-3 text-[15px] text-ink outline-none placeholder:text-stone-400 focus:border-accent"
       />
       <div className="flex items-center justify-between text-xs text-stone-500">
         <span className={content.length >= MAX_POST_LENGTH ? 'font-semibold text-red-600' : ''}>
@@ -128,13 +128,13 @@ export function ComposeSheet({ cellId, source }: { cellId: string; source?: stri
         <button
           onClick={handleSubmit}
           disabled={state === 'submitting' || content.trim().length === 0}
-          className="flex-1 rounded-full bg-ink py-3 text-sm font-semibold text-white transition-transform duration-150 active:scale-[0.98] disabled:opacity-40"
+          className="flex-1 rounded-lg bg-accent py-3 text-sm font-bold text-white transition-transform duration-150 active:scale-[0.98] disabled:opacity-40"
         >
           {t('submit')}
         </button>
         <button
           onClick={() => setOpen(false)}
-          className="rounded-full px-5 py-3 text-sm text-stone-500"
+          className="rounded-lg px-5 py-3 text-sm text-stone-500"
         >
           {t('cancel')}
         </button>

@@ -23,12 +23,14 @@ export default async function HerePage({
   return (
     <main className="flex flex-1 flex-col">
       <div className="flex flex-1 flex-col items-center justify-center gap-9 text-center">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight text-ink">
-            {SERVICE_NAME}
-            <span className="text-accent-deep">.</span>
-          </h1>
-          <p className="text-sm text-stone-500">{t('tagline')}</p>
+        <div className="w-full max-w-72 overflow-hidden rounded-lg border-2 border-ink bg-white">
+          <div className="px-4 pb-4 pt-6">
+            <h1 className="text-3xl font-bold tracking-tight text-ink">
+              {SERVICE_NAME}
+              <span className="text-accent">.</span>
+            </h1>
+          </div>
+          <div className="bg-accent px-4 py-1.5 text-xs font-medium text-white">{t('tagline')}</div>
         </div>
         <HereClient source={source} />
       </div>

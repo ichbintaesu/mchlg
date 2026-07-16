@@ -60,28 +60,31 @@ export default async function CellPage({
 
   return (
     <main className="flex flex-1 flex-col">
-      <header className="space-y-1.5 py-7">
-        <p className="text-xs font-bold tracking-tight text-stone-400">
+      <header className="py-6">
+        <p className="pb-2 text-xs font-bold tracking-widest text-stone-400">
           {SERVICE_NAME}
-          <span className="text-accent-deep">.</span>
+          <span className="text-accent">.</span>
         </p>
-        <div className="flex items-center gap-2">
-          <span className="size-2 rounded-full bg-accent" />
-          <h1 className="text-xl font-bold tracking-tight text-ink">{title}</h1>
+        <div className="overflow-hidden rounded-lg border-2 border-ink bg-white">
+          <div className="px-4 pb-4 pt-6 text-center">
+            <h1 className="text-2xl font-bold tracking-wide text-ink">{title}</h1>
+          </div>
+          <div className="bg-accent px-4 py-1.5 text-center text-xs font-medium text-white">
+            {t('subtitle')}
+          </div>
         </div>
-        <p className="text-xs text-stone-500">{t('subtitle')}</p>
       </header>
 
       {!locked && <ComposeSheet cellId={cellId} source={source} />}
 
       <section className="flex-1 py-4">
         {posts.length === 0 ? (
-          <div className="py-16 text-center">
+          <div className="rounded-lg border-2 border-ink bg-white px-4 py-16 text-center">
             <p className="text-sm text-stone-500">{t('empty')}</p>
-            <p className="mt-1.5 text-sm font-medium text-stone-600">{t('emptyCta')}</p>
+            <p className="mt-1.5 text-sm font-medium text-stone-700">{t('emptyCta')}</p>
           </div>
         ) : (
-          <ul className="space-y-3">
+          <ul className="divide-y divide-stone-200 overflow-hidden rounded-lg border-2 border-ink bg-white">
             {posts.map((post) => (
               <PostItem
                 key={post.id}
