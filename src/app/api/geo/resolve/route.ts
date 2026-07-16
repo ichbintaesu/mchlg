@@ -1,8 +1,9 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { cookies, headers } from 'next/headers'
-import { LOCALE_COOKIE } from '@/config'
+import { LOCALE_COOKIE, TOWN_COOKIE, TOWN_COOKIE_MAX_AGE } from '@/config'
 import { resolveCell } from '@/lib/h3'
 import { ensureCell } from '@/lib/posts'
+import { reverseGeocodeTown } from '@/lib/geocode'
 import { getRequestContext } from '@/lib/request-context'
 import { trackEvent } from '@/lib/events'
 import { matchLocale } from '@/i18n/locale'
@@ -39,7 +40,7 @@ export async function POST(request: NextRequest) {
   }
 
   const cellId = resolveCell(lat, lng)
-  await ensureCell(cellId)
+  const [, userTown] = await Promise.all([ensureCell(cellId), reverseGeocodeTown(lat, lng)])
 
   const [ctx, cookieStore, headerStore] = await Promise.all([
     getRequestContext(),
@@ -61,5 +62,15 @@ export async function POST(request: NextRequest) {
   })
 
   const redirectUrl = source ? `/c/${cellId}?s=${encodeURIComponent(source)}` : `/c/${cellId}`
-  return NextResponse.json({ cellId, redirectUrl })
+  const response = NextResponse.json({ cellId, redirectUrl })
+  if (userTown) {
+    response.cookies.set(TOWN_COOKIE, encodeURIComponent(userTown), {
+      maxAge: TOWN_COOKIE_MAX_AGE,
+      path: '/',
+      sameSite: 'lax',
+    })
+  } else {
+    response.cookies.delete(TOWN_COOKIE)
+  }
+  return response
 }

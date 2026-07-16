@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
+import { cookies } from 'next/headers'
 import { getLocale, getTranslations } from 'next-intl/server'
-import { SERVICE_NAME } from '@/config'
+import { SERVICE_NAME, TOWN_COOKIE } from '@/config'
 import { isValidCellId } from '@/lib/h3'
 import { getCell, listCellPosts } from '@/lib/posts'
 import { getRequestContext } from '@/lib/request-context'
@@ -8,6 +9,16 @@ import { trackEvent } from '@/lib/events'
 import { Footer } from '@/components/Footer'
 import { PostItem } from '@/components/PostItem'
 import { ComposeSheet } from '@/components/ComposeSheet'
+
+function readTownCookie(raw: string | undefined): string | null {
+  if (!raw) return null
+  try {
+    const decoded = decodeURIComponent(raw).trim()
+    return decoded && decoded.length <= 30 ? decoded : null
+  } catch {
+    return null
+  }
+}
 
 export default async function CellPage({
   params,
@@ -25,12 +36,15 @@ export default async function CellPage({
   const cell = await getCell(cellId)
   if (cell && (cell.status === 'hidden' || cell.status === 'blocked')) notFound()
 
-  const [posts, ctx, locale, t] = await Promise.all([
+  const [posts, ctx, locale, t, cookieStore] = await Promise.all([
     listCellPosts(cellId),
     getRequestContext(),
     getLocale(),
     getTranslations('cell'),
+    cookies(),
   ])
+
+  const displayName = readTownCookie(cookieStore.get(TOWN_COOKIE)?.value) ?? cell?.roughName ?? t('title')
 
   await trackEvent({
     type: 'cell_view',
@@ -52,9 +66,7 @@ export default async function CellPage({
         </p>
         <div className="flex items-center gap-2">
           <span className="size-2 rounded-full bg-accent" />
-          <h1 className="text-xl font-bold tracking-tight text-ink">
-            {cell?.roughName ?? t('title')}
-          </h1>
+          <h1 className="text-xl font-bold tracking-tight text-ink">{displayName}</h1>
         </div>
         <p className="text-xs text-stone-500">{t('subtitle')}</p>
       </header>

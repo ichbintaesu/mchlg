@@ -16,6 +16,8 @@ export const IP_RETENTION_DAYS = 90
 
 export const DEVICE_COOKIE = 'ml_did'
 export const LOCALE_COOKIE = 'ml_locale'
+export const TOWN_COOKIE = 'ml_town'
+export const TOWN_COOKIE_MAX_AGE = 60 * 60
 export const ADMIN_COOKIE = 'ml_admin'
 export const ADMIN_SESSION_HOURS = 24
 
