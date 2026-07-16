@@ -3,6 +3,7 @@ import { db } from '@/db'
 import { cells, posts } from '@/db/schema'
 import { POSTS_PAGE_SIZE } from '@/config'
 import { cellCenter } from './h3'
+import { reverseGeocodeTown } from './geocode'
 
 export interface CellPost {
   id: string
@@ -12,10 +13,28 @@ export interface CellPost {
 }
 
 export async function ensureCell(cellId: string) {
+  const [existing] = await db.select().from(cells).where(eq(cells.id, cellId))
   const center = cellCenter(cellId)
+
+  if (existing) {
+    if (existing.roughName) return existing
+    const roughName = await reverseGeocodeTown(
+      existing.centerLat ?? center.lat,
+      existing.centerLng ?? center.lng,
+    )
+    if (!roughName) return existing
+    const [updated] = await db
+      .update(cells)
+      .set({ roughName })
+      .where(eq(cells.id, cellId))
+      .returning()
+    return updated
+  }
+
+  const roughName = await reverseGeocodeTown(center.lat, center.lng)
   await db
     .insert(cells)
-    .values({ id: cellId, centerLat: center.lat, centerLng: center.lng })
+    .values({ id: cellId, centerLat: center.lat, centerLng: center.lng, roughName })
     .onConflictDoNothing()
   const [cell] = await db.select().from(cells).where(eq(cells.id, cellId))
   return cell
