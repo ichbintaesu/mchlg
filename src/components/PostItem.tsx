@@ -108,11 +108,13 @@ export function PostItem({
           </p>
           <div className="mt-1.5 flex items-center gap-3 text-xs text-stone-500">
             {isOwn ? (
-              count > 0 && (
-                <span className="font-medium text-accent-deep">
-                  {t('reaction')} {count}
-                </span>
-              )
+              <span
+                className={`rounded-full border border-stone-200 px-2.5 py-0.5 font-medium ${
+                  count > 0 ? 'text-accent-deep' : 'text-stone-300'
+                }`}
+              >
+                {t('reaction')} <span className="tabular-nums">{count}</span>
+              </span>
             ) : (
               <button
                 onClick={handleReaction}
