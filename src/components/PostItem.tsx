@@ -45,7 +45,11 @@ export function PostItem({
     setReacted(!reacted)
     setCount((c) => c + (reacted ? -1 : 1))
     try {
-      const res = await fetch(`/api/posts/${id}/reaction`, { method: 'POST' })
+      const res = await fetch(`/api/posts/${id}/reaction`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: '{}',
+      })
       if (res.ok) {
         const data: { reacted: boolean; count: number } = await res.json()
         setReacted(data.reacted)
