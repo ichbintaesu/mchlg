@@ -2,7 +2,7 @@ import { and, desc, eq, sql } from 'drizzle-orm'
 import { db } from '@/db'
 import { cells, posts } from '@/db/schema'
 import { POSTS_PAGE_SIZE } from '@/config'
-import { cellCenter } from './h3'
+import { cellCenter, directionalNeighbor } from './h3'
 import { reverseGeocodeTown } from './geocode'
 
 export interface CellPost {
@@ -38,6 +38,23 @@ export async function ensureCell(cellId: string) {
     .onConflictDoNothing()
   const [cell] = await db.select().from(cells).where(eq(cells.id, cellId))
   return cell
+}
+
+const ADJACENT_TOWN_MAX_STEPS = 4
+
+export async function findAdjacentTown(
+  cellId: string,
+  dir: 'west' | 'east',
+  excludeTown: string | null,
+): Promise<string | null> {
+  for (let k = 1; k <= ADJACENT_TOWN_MAX_STEPS; k++) {
+    const neighborId = directionalNeighbor(cellId, k, dir)
+    const neighbor = await ensureCell(neighborId)
+    if (neighbor?.roughName && neighbor.roughName !== excludeTown) {
+      return neighbor.roughName
+    }
+  }
+  return null
 }
 
 export async function getCell(cellId: string) {

@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { SERVICE_NAME, TOWN_COOKIE } from '@/config'
-import { eastWestNeighborCells, isValidCellId } from '@/lib/h3'
-import { ensureCell, getCell, listCellPosts } from '@/lib/posts'
+import { isValidCellId } from '@/lib/h3'
+import { findAdjacentTown, getCell, listCellPosts } from '@/lib/posts'
 import { getRequestContext } from '@/lib/request-context'
 import { trackEvent } from '@/lib/events'
 import { Footer } from '@/components/Footer'
@@ -36,18 +36,17 @@ export default async function CellPage({
   const cell = await getCell(cellId)
   if (cell && (cell.status === 'hidden' || cell.status === 'blocked')) notFound()
 
-  const { west, east } = eastWestNeighborCells(cellId)
-  const [posts, ctx, locale, t, cookieStore, westCell, eastCell] = await Promise.all([
+  const cookieStore = await cookies()
+  const town = readTownCookie(cookieStore.get(TOWN_COOKIE)?.value) ?? cell?.roughName ?? null
+
+  const [posts, ctx, locale, t, westTown, eastTown] = await Promise.all([
     listCellPosts(cellId),
     getRequestContext(),
     getLocale(),
     getTranslations('cell'),
-    cookies(),
-    ensureCell(west),
-    ensureCell(east),
+    findAdjacentTown(cellId, 'west', town),
+    findAdjacentTown(cellId, 'east', town),
   ])
-
-  const town = readTownCookie(cookieStore.get(TOWN_COOKIE)?.value) ?? cell?.roughName
 
   await trackEvent({
     type: 'cell_view',
@@ -84,12 +83,20 @@ export default async function CellPage({
           </div>
           <div className="flex items-center justify-between gap-2 bg-accent px-2 py-2 text-[11px] font-medium text-white">
             <span className="flex min-w-0 items-center gap-1">
-              <span aria-hidden>◀</span>
-              <span className="truncate">{westCell?.roughName ?? ''}</span>
+              {westTown && (
+                <>
+                  <span aria-hidden>◀</span>
+                  <span className="truncate">{westTown}</span>
+                </>
+              )}
             </span>
             <span className="flex min-w-0 items-center gap-1 text-right">
-              <span className="truncate">{eastCell?.roughName ?? ''}</span>
-              <span aria-hidden>▶</span>
+              {eastTown && (
+                <>
+                  <span className="truncate">{eastTown}</span>
+                  <span aria-hidden>▶</span>
+                </>
+              )}
             </span>
           </div>
         </div>

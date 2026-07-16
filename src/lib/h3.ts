@@ -1,4 +1,4 @@
-import { cellToLatLng, gridDisk, isValidCell, latLngToCell } from 'h3-js'
+import { cellToLatLng, gridDisk, gridDistance, isValidCell, latLngToCell } from 'h3-js'
 import { H3_RESOLUTION, WRITE_NEIGHBOR_TOLERANCE_K } from '@/config'
 
 export function resolveCell(lat: number, lng: number): string {
@@ -14,12 +14,12 @@ export function cellCenter(cellId: string): { lat: number; lng: number } {
   return { lat, lng }
 }
 
-export function eastWestNeighborCells(cellId: string): { west: string; east: string } {
-  const neighbors = gridDisk(cellId, 1)
-    .filter((id) => id !== cellId)
+export function directionalNeighbor(cellId: string, k: number, dir: 'west' | 'east'): string {
+  const ring = gridDisk(cellId, k)
+    .filter((id) => gridDistance(cellId, id) === k)
     .map((id) => ({ id, lng: cellToLatLng(id)[1] }))
     .sort((a, b) => a.lng - b.lng)
-  return { west: neighbors[0].id, east: neighbors[neighbors.length - 1].id }
+  return dir === 'west' ? ring[0].id : ring[ring.length - 1].id
 }
 
 export function isWithinWriteTolerance(targetCellId: string, lat: number, lng: number): boolean {
