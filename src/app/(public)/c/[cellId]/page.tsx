@@ -67,11 +67,7 @@ export default async function CellPage({
           <span className="text-accent">.</span>
         </p>
         <div className="overflow-hidden rounded-md bg-white shadow-[0_1px_4px_rgba(0,0,0,0.15)]">
-          <div className="relative px-4 pb-3 pt-7 text-center">
-            <span className="absolute left-3 top-3 inline-flex flex-col items-center rounded border-[2.5px] border-accent px-1 py-0.5 font-mono text-[9px] font-bold leading-tight text-ink">
-              <span>ML</span>
-              <span>10</span>
-            </span>
+          <div className="px-4 pb-3 pt-6 text-center">
             {town ? (
               <>
                 <h1 className="text-[27px] font-bold leading-tight tracking-wide text-ink">{town}</h1>
