@@ -94,7 +94,7 @@ export function ComposeSheet({ cellId, source }: { cellId: string; source?: stri
       <div className="space-y-2">
         <button
           onClick={handleOpen}
-          className="w-full rounded-lg bg-ink py-3.5 font-bold text-white transition-transform duration-150 active:scale-[0.98]"
+          className="w-full rounded-lg border border-stone-300 bg-white py-3.5 font-bold text-ink shadow-[0_1px_2px_rgba(0,0,0,0.06)] transition-transform duration-150 active:scale-[0.98]"
         >
           {t('compose')}
         </button>
@@ -129,7 +129,7 @@ export function ComposeSheet({ cellId, source }: { cellId: string; source?: stri
         <button
           onClick={handleSubmit}
           disabled={state === 'submitting' || content.trim().length === 0}
-          className="flex-1 rounded-lg bg-ink py-3 text-sm font-bold text-white transition-transform duration-150 active:scale-[0.98] disabled:opacity-40"
+          className="flex-1 rounded-lg border border-stone-300 bg-white py-3 text-sm font-bold text-ink shadow-[0_1px_2px_rgba(0,0,0,0.06)] transition-transform duration-150 active:scale-[0.98] disabled:opacity-40"
         >
           {t('submit')}
         </button>
