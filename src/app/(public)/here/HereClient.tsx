@@ -11,7 +11,7 @@ const PRIMARY_BUTTON =
   'rounded-lg bg-accent px-12 py-4 text-base font-bold text-white transition-transform duration-150 active:scale-[0.98]'
 
 const SECONDARY_BUTTON =
-  'rounded-lg border-2 border-ink bg-white px-8 py-3 text-sm font-medium text-ink transition-transform duration-150 active:scale-[0.98]'
+  'rounded-lg border border-stone-300 bg-white px-8 py-3 text-sm font-medium text-ink transition-transform duration-150 active:scale-[0.98]'
 
 export function HereClient({ source }: { source?: string }) {
   const [status, setStatus] = useState<Status>('idle')

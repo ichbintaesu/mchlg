@@ -31,7 +31,7 @@
     "reportDetail": "Details (optional)",
     "reportSubmit": "Submit report",
     "reported": "Report received",
-    "titleWithTown": "Somewhere in {town}"
+    "somewhere": "somewhere around here"
   },
   "reportReasons": {
     "personal": "Attack on an individual",

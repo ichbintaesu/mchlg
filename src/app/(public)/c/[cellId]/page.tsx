@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { SERVICE_NAME, TOWN_COOKIE } from '@/config'
-import { isValidCellId } from '@/lib/h3'
-import { getCell, listCellPosts } from '@/lib/posts'
+import { eastWestNeighborCells, isValidCellId } from '@/lib/h3'
+import { ensureCell, getCell, listCellPosts } from '@/lib/posts'
 import { getRequestContext } from '@/lib/request-context'
 import { trackEvent } from '@/lib/events'
 import { Footer } from '@/components/Footer'
@@ -36,16 +36,18 @@ export default async function CellPage({
   const cell = await getCell(cellId)
   if (cell && (cell.status === 'hidden' || cell.status === 'blocked')) notFound()
 
-  const [posts, ctx, locale, t, cookieStore] = await Promise.all([
+  const { west, east } = eastWestNeighborCells(cellId)
+  const [posts, ctx, locale, t, cookieStore, westCell, eastCell] = await Promise.all([
     listCellPosts(cellId),
     getRequestContext(),
     getLocale(),
     getTranslations('cell'),
     cookies(),
+    ensureCell(west),
+    ensureCell(east),
   ])
 
   const town = readTownCookie(cookieStore.get(TOWN_COOKIE)?.value) ?? cell?.roughName
-  const title = town ? t('titleWithTown', { town }) : t('title')
 
   await trackEvent({
     type: 'cell_view',
@@ -65,26 +67,45 @@ export default async function CellPage({
           {SERVICE_NAME}
           <span className="text-accent">.</span>
         </p>
-        <div className="overflow-hidden rounded-lg border-2 border-ink bg-white">
-          <div className="px-4 pb-4 pt-6 text-center">
-            <h1 className="text-2xl font-bold tracking-wide text-ink">{title}</h1>
+        <div className="overflow-hidden rounded-md bg-white shadow-[0_1px_4px_rgba(0,0,0,0.15)]">
+          <div className="relative px-4 pb-3 pt-7 text-center">
+            <span className="absolute left-3 top-3 inline-flex flex-col items-center rounded border-[2.5px] border-accent px-1 py-0.5 font-mono text-[9px] font-bold leading-tight text-ink">
+              <span>ML</span>
+              <span>10</span>
+            </span>
+            {town ? (
+              <>
+                <h1 className="text-[27px] font-bold leading-tight tracking-wide text-ink">{town}</h1>
+                <p className="mt-1 text-xs tracking-[0.2em] text-stone-500">{t('somewhere')}</p>
+              </>
+            ) : (
+              <h1 className="text-xl font-bold tracking-wide text-ink">{t('title')}</h1>
+            )}
           </div>
-          <div className="bg-accent px-4 py-1.5 text-center text-xs font-medium text-white">
-            {t('subtitle')}
+          <div className="flex items-center justify-between gap-2 bg-accent px-2 py-2 text-[11px] font-medium text-white">
+            <span className="flex min-w-0 items-center gap-1">
+              <span aria-hidden>◀</span>
+              <span className="truncate">{westCell?.roughName ?? ''}</span>
+            </span>
+            <span className="flex min-w-0 items-center gap-1 text-right">
+              <span className="truncate">{eastCell?.roughName ?? ''}</span>
+              <span aria-hidden>▶</span>
+            </span>
           </div>
         </div>
+        <p className="pt-2 text-center text-xs text-stone-500">{t('subtitle')}</p>
       </header>
 
       {!locked && <ComposeSheet cellId={cellId} source={source} />}
 
       <section className="flex-1 py-4">
         {posts.length === 0 ? (
-          <div className="rounded-lg border-2 border-ink bg-white px-4 py-16 text-center">
+          <div className="rounded-md bg-white px-4 py-16 text-center shadow-[0_1px_4px_rgba(0,0,0,0.15)]">
             <p className="text-sm text-stone-500">{t('empty')}</p>
             <p className="mt-1.5 text-sm font-medium text-stone-700">{t('emptyCta')}</p>
           </div>
         ) : (
-          <ul className="divide-y divide-stone-200 overflow-hidden rounded-lg border-2 border-ink bg-white">
+          <ul className="divide-y divide-stone-200 overflow-hidden rounded-md bg-white shadow-[0_1px_4px_rgba(0,0,0,0.15)]">
             {posts.map((post) => (
               <PostItem
                 key={post.id}

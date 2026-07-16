@@ -23,7 +23,7 @@ export default async function HerePage({
   return (
     <main className="flex flex-1 flex-col">
       <div className="flex flex-1 flex-col items-center justify-center gap-9 text-center">
-        <div className="w-full max-w-72 overflow-hidden rounded-lg border-2 border-ink bg-white">
+        <div className="w-full max-w-72 overflow-hidden rounded-md bg-white shadow-[0_1px_4px_rgba(0,0,0,0.15)]">
           <div className="px-4 pb-4 pt-6">
             <h1 className="text-3xl font-bold tracking-tight text-ink">
               {SERVICE_NAME}

@@ -31,7 +31,7 @@
     "reportDetail": "詳細(任意)",
     "reportSubmit": "通報する",
     "reported": "通報を受け付けました",
-    "titleWithTown": "{town}のどこか"
+    "somewhere": "このあたりのどこか"
   },
   "reportReasons": {
     "personal": "個人への攻撃",

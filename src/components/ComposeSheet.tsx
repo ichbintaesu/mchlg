@@ -107,7 +107,7 @@ export function ComposeSheet({ cellId, source }: { cellId: string; source?: stri
   }
 
   return (
-    <div className="space-y-2.5 rounded-lg border-2 border-ink bg-white p-4">
+    <div className="space-y-2.5 rounded-md bg-white p-4 shadow-[0_1px_4px_rgba(0,0,0,0.15)]">
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
