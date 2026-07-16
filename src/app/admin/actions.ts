@@ -6,7 +6,7 @@ import { cookies } from 'next/headers'
 import { eq } from 'drizzle-orm'
 import { nanoid } from 'nanoid'
 import { db } from '@/db'
-import { adminActions, posts } from '@/db/schema'
+import { adminActions, posts, reports } from '@/db/schema'
 import { ADMIN_COOKIE, ADMIN_SESSION_HOURS } from '@/config'
 import { safeEqual, signAdminSession } from '@/lib/crypto'
 import { isAdminAuthenticated } from '@/lib/admin-auth'
@@ -28,7 +28,7 @@ export async function loginAction(formData: FormData) {
     maxAge: ADMIN_SESSION_HOURS * 60 * 60,
     path: '/',
   })
-  redirect('/admin/posts')
+  redirect('/admin/dashboard')
 }
 
 export async function logoutAction() {
@@ -63,4 +63,27 @@ export async function setPostStatusAction(postId: string, status: PostStatus) {
   })
 
   revalidatePath('/admin/posts')
+}
+
+export async function resolveReportAction(reportId: string, resolution: 'dismissed' | 'actioned') {
+  if (!(await isAdminAuthenticated())) redirect('/admin')
+
+  const [report] = await db.select().from(reports).where(eq(reports.id, reportId))
+  if (!report || report.status !== 'open') return
+
+  if (resolution === 'actioned') {
+    await setPostStatusAction(report.postId, 'hidden')
+  }
+
+  await db.update(reports).set({ status: resolution }).where(eq(reports.id, reportId))
+
+  await db.insert(adminActions).values({
+    id: nanoid(),
+    adminId: 'admin',
+    actionType: `report_${resolution}`,
+    targetType: 'report',
+    targetId: reportId,
+  })
+
+  revalidatePath('/admin/reports')
 }

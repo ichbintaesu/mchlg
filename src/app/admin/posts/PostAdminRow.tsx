@@ -40,7 +40,7 @@ export function PostAdminRow({
   }
 
   return (
-    <li className={`rounded-xl bg-white p-4 text-ink ring-1 ring-stone-900/5 ${isPending ? 'opacity-50' : ''}`}>
+    <li className={`rounded-md border border-stone-200 bg-white p-3 text-ink ${isPending ? 'opacity-50' : ''}`}>
       <p className="break-words text-sm">{content}</p>
       <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-stone-500">
         <span className={`rounded-full px-2 py-0.5 ${STATUS_COLORS[status] ?? 'bg-stone-100'}`}>

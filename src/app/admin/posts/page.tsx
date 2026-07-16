@@ -4,7 +4,6 @@ import { desc, eq, gt } from 'drizzle-orm'
 import { db } from '@/db'
 import { posts } from '@/db/schema'
 import { isAdminAuthenticated } from '@/lib/admin-auth'
-import { logoutAction } from '../actions'
 import { PostAdminRow } from './PostAdminRow'
 
 const FILTERS = [
@@ -34,31 +33,25 @@ export default async function AdminPostsPage({
         : await baseQuery.where(eq(posts.status, filter)).orderBy(desc(posts.createdAt)).limit(100)
 
   return (
-    <main className="flex flex-1 flex-col py-6">
-      <header className="flex items-center justify-between pb-4">
-        <h1 className="text-lg font-bold">글 관리</h1>
-        <form action={logoutAction}>
-          <button type="submit" className="text-xs text-stone-500 underline">
-            로그아웃
-          </button>
-        </form>
-      </header>
-
-      <nav className="flex flex-wrap gap-2 pb-4 text-xs">
-        {FILTERS.map((f) => (
-          <Link
-            key={f.key}
-            href={`/admin/posts?filter=${f.key}`}
-            className={`rounded-full border px-3 py-1 ${
-              filter === f.key
-                ? 'border-ink bg-ink text-white'
-                : 'border-stone-300 text-stone-600'
-            }`}
-          >
-            {f.label}
-          </Link>
-        ))}
-      </nav>
+    <main className="pb-10">
+      <div className="mb-4 flex items-center gap-3">
+        <h1 className="text-base font-bold">글 관리</h1>
+        <nav className="flex flex-wrap gap-1 text-xs">
+          {FILTERS.map((f) => (
+            <Link
+              key={f.key}
+              href={`/admin/posts?filter=${f.key}`}
+              className={`rounded-md border px-2.5 py-1 ${
+                filter === f.key
+                  ? 'border-stone-900 bg-stone-900 text-white'
+                  : 'border-stone-300 text-stone-600'
+              }`}
+            >
+              {f.label}
+            </Link>
+          ))}
+        </nav>
+      </div>
 
       {rows.length === 0 ? (
         <p className="py-8 text-center text-sm text-stone-500">글이 없습니다.</p>
