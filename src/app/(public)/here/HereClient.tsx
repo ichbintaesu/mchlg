@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { sendClientEvent } from '@/lib/client-events'
+import { getCurrentPositionRobust, isPermissionDenied } from '@/lib/geolocation'
 
 type Status = 'idle' | 'locating' | 'denied' | 'error'
 
@@ -19,47 +20,48 @@ export function HereClient({ source }: { source?: string }) {
   const t = useTranslations('here')
   const tErrors = useTranslations('errors')
 
-  const locate = () => {
+  const locate = async () => {
     setStatus('locating')
 
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        try {
-          const res = await fetch('/api/geo/resolve', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-              accuracy: position.coords.accuracy,
-              source,
-            }),
-          })
-          if (!res.ok) {
-            setStatus('error')
-            return
-          }
-          const data: { redirectUrl: string } = await res.json()
-          router.replace(data.redirectUrl)
-        } catch {
-          setStatus('error')
-        }
-      },
-      (error) => {
-        if (error.code === error.PERMISSION_DENIED) {
-          setStatus('denied')
-          sendClientEvent({ type: 'geo_denied', source })
-        } else {
-          setStatus('error')
-          sendClientEvent({
-            type: 'geo_error',
-            source,
-            meta: { code: error.code, message: error.message },
-          })
-        }
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 30000 },
-    )
+    let position: GeolocationPosition
+    try {
+      position = await getCurrentPositionRobust()
+    } catch (error) {
+      if (isPermissionDenied(error)) {
+        setStatus('denied')
+        sendClientEvent({ type: 'geo_denied', source })
+      } else {
+        setStatus('error')
+        const err = error as GeolocationPositionError
+        sendClientEvent({
+          type: 'geo_error',
+          source,
+          meta: { code: err?.code ?? null, message: err?.message ?? String(error) },
+        })
+      }
+      return
+    }
+
+    try {
+      const res = await fetch('/api/geo/resolve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+          accuracy: position.coords.accuracy,
+          source,
+        }),
+      })
+      if (!res.ok) {
+        setStatus('error')
+        return
+      }
+      const data: { redirectUrl: string } = await res.json()
+      router.replace(data.redirectUrl)
+    } catch {
+      setStatus('error')
+    }
   }
 
   if (status === 'locating') {

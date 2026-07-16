@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { MAX_POST_LENGTH } from '@/config'
 import { sendClientEvent } from '@/lib/client-events'
+import { getCurrentPositionRobust } from '@/lib/geolocation'
 
 type SubmitState = 'idle' | 'submitting' | 'posted' | 'pending'
 
@@ -22,52 +23,52 @@ export function ComposeSheet({ cellId, source }: { cellId: string; source?: stri
     sendClientEvent({ type: 'compose_opened', cellId, source })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const trimmed = content.trim()
     if (!trimmed) return
     setState('submitting')
     setError(null)
 
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        try {
-          const res = await fetch('/api/posts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              cellId,
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-              accuracy: position.coords.accuracy,
-              content: trimmed,
-              source,
-            }),
-          })
-          const data: { status?: string; error?: string } = await res.json()
-          if (!res.ok) {
-            setState('idle')
-            setError(mapError(data.error))
-            return
-          }
-          if (data.status === 'pending') {
-            setState('pending')
-          } else {
-            setState('posted')
-            router.refresh()
-          }
-          setContent('')
-          setOpen(false)
-        } catch {
-          setState('idle')
-          setError(tErrors('generic'))
-        }
-      },
-      () => {
+    let position: GeolocationPosition
+    try {
+      position = await getCurrentPositionRobust()
+    } catch {
+      setState('idle')
+      setError(tErrors('generic'))
+      return
+    }
+
+    try {
+      const res = await fetch('/api/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cellId,
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+          accuracy: position.coords.accuracy,
+          content: trimmed,
+          source,
+        }),
+      })
+      const data: { status?: string; error?: string } = await res.json()
+      if (!res.ok) {
         setState('idle')
-        setError(tErrors('generic'))
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 },
-    )
+        setError(mapError(data.error))
+        return
+      }
+      if (data.status === 'pending') {
+        setState('pending')
+      } else {
+        setState('posted')
+        router.refresh()
+      }
+      setContent('')
+      setOpen(false)
+    } catch {
+      setState('idle')
+      setError(tErrors('generic'))
+    }
   }
 
   const mapError = (code: string | undefined): string => {
