@@ -8,10 +8,10 @@ import { sendClientEvent } from '@/lib/client-events'
 type Status = 'idle' | 'locating' | 'denied' | 'error'
 
 const PRIMARY_BUTTON =
-  'glossy rounded-full bg-ink px-12 py-4 text-base font-semibold text-white transition-transform duration-150 active:scale-95'
+  'rounded-full bg-ink px-12 py-4 text-base font-semibold text-white transition-transform duration-150 active:scale-[0.98]'
 
-const GHOST_BUTTON =
-  'glass rounded-full px-8 py-3 text-sm font-medium text-ink transition-transform duration-150 active:scale-95'
+const SECONDARY_BUTTON =
+  'rounded-full border border-stone-300 bg-white px-8 py-3 text-sm font-medium text-ink transition-transform duration-150 active:scale-[0.98]'
 
 export function HereClient({ source }: { source?: string }) {
   const [status, setStatus] = useState<Status>('idle')
@@ -63,15 +63,7 @@ export function HereClient({ source }: { source?: string }) {
   }
 
   if (status === 'locating') {
-    return (
-      <div className="flex flex-col items-center gap-3">
-        <span className="relative flex size-3">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
-          <span className="relative inline-flex size-3 rounded-full bg-accent" />
-        </span>
-        <p className="text-sm text-stone-500">{t('locating')}</p>
-      </div>
-    )
+    return <p className="text-sm text-stone-600">{t('locating')}</p>
   }
 
   if (status === 'denied') {
@@ -79,7 +71,7 @@ export function HereClient({ source }: { source?: string }) {
       <div className="space-y-4">
         <p className="text-sm text-stone-700">{t('denied')}</p>
         <p className="text-xs text-stone-500">{t('deniedHint')}</p>
-        <button onClick={locate} className={GHOST_BUTTON}>
+        <button onClick={locate} className={SECONDARY_BUTTON}>
           {t('retry')}
         </button>
       </div>
@@ -90,7 +82,7 @@ export function HereClient({ source }: { source?: string }) {
     return (
       <div className="space-y-4">
         <p className="text-sm text-stone-700">{tErrors('generic')}</p>
-        <button onClick={locate} className={GHOST_BUTTON}>
+        <button onClick={locate} className={SECONDARY_BUTTON}>
           {t('retry')}
         </button>
       </div>

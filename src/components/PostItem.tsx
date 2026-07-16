@@ -54,9 +54,9 @@ export function PostItem({ id, content, createdAt, isNeighbor, isOwn }: PostItem
   }
 
   return (
-    <li className="glass rounded-2xl p-4">
+    <li className="rounded-xl border border-stone-200 bg-white p-4">
       <p className="whitespace-pre-wrap break-words text-[15px] leading-relaxed text-ink">{content}</p>
-      <div className="mt-2.5 flex items-center gap-2 text-[11px] text-stone-400">
+      <div className="mt-2.5 flex items-center gap-2 text-xs text-stone-500">
         <time>{format.dateTime(new Date(createdAt), { dateStyle: 'medium', timeStyle: 'short' })}</time>
         {isNeighbor && (
           <span className="rounded-full bg-accent/15 px-2 py-0.5 font-medium text-accent-deep">
@@ -65,14 +65,14 @@ export function PostItem({ id, content, createdAt, isNeighbor, isOwn }: PostItem
         )}
         <span className="ml-auto flex gap-3">
           {isOwn && (
-            <button onClick={handleDelete} className="text-stone-400">
+            <button onClick={handleDelete} className="text-stone-500 underline">
               {t('delete')}
             </button>
           )}
           {done ? (
             <span>{t('reported')}</span>
           ) : (
-            <button onClick={() => setReporting(!reporting)} className="text-stone-400">
+            <button onClick={() => setReporting(!reporting)} className="text-stone-500 underline">
               {t('report')}
             </button>
           )}
@@ -85,7 +85,7 @@ export function PostItem({ id, content, createdAt, isNeighbor, isOwn }: PostItem
           <select
             value={reason}
             onChange={(e) => setReason(e.target.value)}
-            className="w-full rounded-xl bg-stone-900/5 px-3 py-2 text-sm text-ink outline-none"
+            className="w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm text-ink outline-none focus:border-stone-500"
           >
             {REPORT_REASONS.map((r) => (
               <option key={r} value={r}>
@@ -98,9 +98,9 @@ export function PostItem({ id, content, createdAt, isNeighbor, isOwn }: PostItem
             onChange={(e) => setDetail(e.target.value)}
             placeholder={t('reportDetail')}
             maxLength={200}
-            className="w-full rounded-xl bg-stone-900/5 px-3 py-2 text-sm text-ink outline-none placeholder:text-stone-400 focus:ring-2 focus:ring-accent/40"
+            className="w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm text-ink outline-none placeholder:text-stone-400 focus:border-stone-500"
           />
-          {reportError && <p className="text-xs text-accent-deep">{reportError}</p>}
+          {reportError && <p className="text-xs text-red-600">{reportError}</p>}
           <div className="flex gap-2">
             <button
               onClick={handleReport}

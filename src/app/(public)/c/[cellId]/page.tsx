@@ -51,10 +51,7 @@ export default async function CellPage({
           <span className="text-accent-deep">.</span>
         </p>
         <div className="flex items-center gap-2">
-          <span className="relative flex size-2.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-50" />
-            <span className="relative inline-flex size-2.5 rounded-full bg-accent" />
-          </span>
+          <span className="size-2 rounded-full bg-accent" />
           <h1 className="text-xl font-bold tracking-tight text-ink">
             {cell?.roughName ?? t('title')}
           </h1>
@@ -67,7 +64,7 @@ export default async function CellPage({
       <section className="flex-1 py-4">
         {posts.length === 0 ? (
           <div className="py-16 text-center">
-            <p className="text-sm text-stone-400">{t('empty')}</p>
+            <p className="text-sm text-stone-500">{t('empty')}</p>
             <p className="mt-1.5 text-sm font-medium text-stone-600">{t('emptyCta')}</p>
           </div>
         ) : (
