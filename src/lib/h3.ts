@@ -14,10 +14,6 @@ export function cellCenter(cellId: string): { lat: number; lng: number } {
   return { lat, lng }
 }
 
-export function neighborCells(cellId: string): string[] {
-  return gridDisk(cellId, 1)
-}
-
 export function isWithinWriteTolerance(targetCellId: string, lat: number, lng: number): boolean {
   const actualCell = resolveCell(lat, lng)
   return gridDisk(actualCell, WRITE_NEIGHBOR_TOLERANCE_K).includes(targetCellId)

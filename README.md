@@ -35,8 +35,8 @@ Geolocation requires HTTPS (or localhost). Test on a phone via `pnpm dev` + loca
 ## Design invariants
 
 - Exact lat/lng is never stored. Posts belong to an H3 cell only.
-- Write requires current location within gridDisk(k=1) of the target cell, accuracy ≤ 200m.
-- Read shows neighbor-cell posts (labeled) only when own cell has < 5 visible posts.
+- One cell = one room: reads show only the cell's own posts.
+- Write requires current location within gridDisk(k=1) of the target cell (GPS-error tolerance only — posts always belong to the page's cell), accuracy ≤ 200m.
 - IP: encrypted original kept 90 days (disclosure-request readiness), hash kept for rate limiting.
 - Posts are visible immediately; regex filter can force pending/block; 2 reports auto-hide.
 - All funnel events land in the `events` table — the data asset survives the service.

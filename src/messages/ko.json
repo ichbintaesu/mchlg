@@ -15,8 +15,6 @@
   "cell": {
     "title": "이 근처의 말들",
     "subtitle": "이 근처에 있던 사람들의 익명 한마디",
-    "neighborLabel": "바로 근처",
-    "neighborNotice": "이 지역의 글이 적어서 바로 근처의 글도 함께 보여드려요.",
     "empty": "아직 아무도 남기지 않았어요.",
     "emptyCta": "첫 기록을 남겨보실래요?",
     "compose": "한마디 남기기",

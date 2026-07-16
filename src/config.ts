@@ -5,7 +5,6 @@ export const WRITE_NEIGHBOR_TOLERANCE_K = 1
 export const MAX_GPS_ACCURACY_METERS = 200
 
 export const MAX_POST_LENGTH = 80
-export const NEIGHBOR_FILL_THRESHOLD = 5
 export const POSTS_PAGE_SIZE = 30
 
 export const WRITE_LIMIT_PER_DEVICE_MS = 60 * 60 * 1000

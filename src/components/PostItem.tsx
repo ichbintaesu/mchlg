@@ -10,11 +10,10 @@ interface PostItemProps {
   id: string
   content: string
   createdAt: string
-  isNeighbor: boolean
   isOwn: boolean
 }
 
-export function PostItem({ id, content, createdAt, isNeighbor, isOwn }: PostItemProps) {
+export function PostItem({ id, content, createdAt, isOwn }: PostItemProps) {
   const [reporting, setReporting] = useState(false)
   const [reason, setReason] = useState<string>('personal')
   const [detail, setDetail] = useState('')
@@ -58,11 +57,6 @@ export function PostItem({ id, content, createdAt, isNeighbor, isOwn }: PostItem
       <p className="whitespace-pre-wrap break-words text-[15px] leading-relaxed text-ink">{content}</p>
       <div className="mt-2.5 flex items-center gap-2 text-xs text-stone-500">
         <time>{format.dateTime(new Date(createdAt), { dateStyle: 'medium', timeStyle: 'short' })}</time>
-        {isNeighbor && (
-          <span className="rounded-full bg-accent/15 px-2 py-0.5 font-medium text-accent-deep">
-            {t('neighborLabel')}
-          </span>
-        )}
         <span className="ml-auto flex gap-3">
           {isOwn && (
             <button onClick={handleDelete} className="text-stone-500 underline">

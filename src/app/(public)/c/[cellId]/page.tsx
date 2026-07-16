@@ -25,7 +25,7 @@ export default async function CellPage({
   const cell = await getCell(cellId)
   if (cell && (cell.status === 'hidden' || cell.status === 'blocked')) notFound()
 
-  const [{ posts, neighborFill }, ctx, locale, t] = await Promise.all([
+  const [posts, ctx, locale, t] = await Promise.all([
     listCellPosts(cellId),
     getRequestContext(),
     getLocale(),
@@ -38,7 +38,7 @@ export default async function CellPage({
     uiLocale: locale,
     cellId,
     source,
-    meta: { visibleCount: posts.filter((p) => !p.isNeighbor).length, neighborFill },
+    meta: { visibleCount: posts.length },
   })
 
   const locked = cell?.status === 'locked'
@@ -68,23 +68,17 @@ export default async function CellPage({
             <p className="mt-1.5 text-sm font-medium text-stone-600">{t('emptyCta')}</p>
           </div>
         ) : (
-          <>
-            {neighborFill && (
-              <p className="pb-3 text-xs text-stone-400">{t('neighborNotice')}</p>
-            )}
-            <ul className="space-y-3">
-              {posts.map((post) => (
-                <PostItem
-                  key={post.id}
-                  id={post.id}
-                  content={post.content}
-                  createdAt={post.createdAt.toISOString()}
-                  isNeighbor={post.isNeighbor}
-                  isOwn={post.deviceHash !== null && post.deviceHash === ctx.deviceHash}
-                />
-              ))}
-            </ul>
-          </>
+          <ul className="space-y-3">
+            {posts.map((post) => (
+              <PostItem
+                key={post.id}
+                id={post.id}
+                content={post.content}
+                createdAt={post.createdAt.toISOString()}
+                isOwn={post.deviceHash !== null && post.deviceHash === ctx.deviceHash}
+              />
+            ))}
+          </ul>
         )}
       </section>
 
