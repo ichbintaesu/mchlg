@@ -9,7 +9,7 @@ import { getCurrentPositionRobust, isPermissionDenied } from '@/lib/geolocation'
 type Status = 'idle' | 'locating' | 'denied' | 'error'
 
 const PRIMARY_BUTTON =
-  'rounded-lg bg-accent px-12 py-4 text-base font-bold text-white transition-transform duration-150 active:scale-[0.98]'
+  'rounded-lg border border-stone-300 bg-white px-12 py-4 text-base font-bold text-ink shadow-[0_1px_2px_rgba(0,0,0,0.06)] transition-transform duration-150 active:scale-[0.98]'
 
 const SECONDARY_BUTTON =
   'rounded-lg border border-stone-300 bg-white px-8 py-3 text-sm font-medium text-ink transition-transform duration-150 active:scale-[0.98]'

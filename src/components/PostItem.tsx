@@ -169,7 +169,7 @@ export function PostItem({
           <div className="flex gap-2">
             <button
               onClick={handleReport}
-              className="rounded-lg bg-ink px-4 py-2 text-xs font-medium text-white transition-transform duration-150 active:scale-95"
+              className="rounded-lg border border-stone-300 bg-white px-4 py-2 text-xs font-medium text-ink shadow-[0_1px_2px_rgba(0,0,0,0.06)] transition-transform duration-150 active:scale-95"
             >
               {t('reportSubmit')}
             </button>

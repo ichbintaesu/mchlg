@@ -110,7 +110,9 @@ export default async function CellPage({
                 key={key}
                 href={`/c/${cellId}?sort=${key}${source ? `&s=${encodeURIComponent(source)}` : ''}`}
                 className={`rounded-md px-2.5 py-1 ${
-                  sort === key ? 'bg-ink font-medium text-white' : 'text-stone-500'
+                  sort === key
+                    ? 'border border-stone-300 bg-white font-semibold text-ink shadow-[0_1px_2px_rgba(0,0,0,0.06)]'
+                    : 'text-stone-400'
                 }`}
               >
                 {key === 'new' ? t('sortNew') : t('sortTop')}
