@@ -44,7 +44,8 @@ export default async function CellPage({
     cookies(),
   ])
 
-  const displayName = readTownCookie(cookieStore.get(TOWN_COOKIE)?.value) ?? cell?.roughName ?? t('title')
+  const town = readTownCookie(cookieStore.get(TOWN_COOKIE)?.value) ?? cell?.roughName
+  const title = town ? t('titleWithTown', { town }) : t('title')
 
   await trackEvent({
     type: 'cell_view',
@@ -66,7 +67,7 @@ export default async function CellPage({
         </p>
         <div className="flex items-center gap-2">
           <span className="size-2 rounded-full bg-accent" />
-          <h1 className="text-xl font-bold tracking-tight text-ink">{displayName}</h1>
+          <h1 className="text-xl font-bold tracking-tight text-ink">{title}</h1>
         </div>
         <p className="text-xs text-stone-500">{t('subtitle')}</p>
       </header>

@@ -30,7 +30,8 @@
     "reportTitle": "Report this post",
     "reportDetail": "Details (optional)",
     "reportSubmit": "Submit report",
-    "reported": "Report received"
+    "reported": "Report received",
+    "titleWithTown": "Somewhere in {town}"
   },
   "reportReasons": {
     "personal": "Attack on an individual",

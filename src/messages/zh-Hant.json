@@ -30,7 +30,8 @@
     "reportTitle": "檢舉這則留言",
     "reportDetail": "詳細說明(選填)",
     "reportSubmit": "送出檢舉",
-    "reported": "已收到檢舉"
+    "reported": "已收到檢舉",
+    "titleWithTown": "{town}的某處"
   },
   "reportReasons": {
     "personal": "攻擊個人",

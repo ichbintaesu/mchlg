@@ -30,7 +30,8 @@
     "reportTitle": "この投稿を通報する",
     "reportDetail": "詳細(任意)",
     "reportSubmit": "通報する",
-    "reported": "通報を受け付けました"
+    "reported": "通報を受け付けました",
+    "titleWithTown": "{town}のどこか"
   },
   "reportReasons": {
     "personal": "個人への攻撃",

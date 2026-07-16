@@ -30,7 +30,8 @@
     "reportTitle": "举报这条留言",
     "reportDetail": "详细说明(可选)",
     "reportSubmit": "提交举报",
-    "reported": "已收到举报"
+    "reported": "已收到举报",
+    "titleWithTown": "{town}的某处"
   },
   "reportReasons": {
     "personal": "攻击个人",

@@ -30,7 +30,8 @@
     "reportTitle": "이 글 신고하기",
     "reportDetail": "상세 내용 (선택)",
     "reportSubmit": "신고하기",
-    "reported": "신고가 접수되었습니다"
+    "reported": "신고가 접수되었습니다",
+    "titleWithTown": "{town}의 어딘가"
   },
   "reportReasons": {
     "personal": "개인 저격",
